@@ -21,8 +21,8 @@ sozinho:
 |---|---|
 | Imersão com `fim` no passado | Some do calendário sozinha |
 | Próxima imersão futura | Ganha o selo **PRÓXIMA** e a linha "faltam X dias" |
-| Imersão **com** `checkout` | Botão **"Garantir minha vaga"** vende direto (mesma aba) + preço |
-| Imersão **sem** `checkout` | Botão **"Quero saber mais"** cai no WhatsApp, sem preço |
+| Imersão **com** `checkout` | Botão **"Garantir minha vaga"** vende direto (mesma aba) |
+| Imersão **sem** `checkout` | Botão **"Quero saber mais"** cai no WhatsApp |
 | Barra fixa do mobile | Herda o destino da próxima imersão: checkout ou WhatsApp |
 | CTA do menu | Rola até a oferta da próxima imersão (`#im-…`) |
 | Array vazio | Aparece o bloco "Novas imersões em breve" com lista de espera |
@@ -48,29 +48,38 @@ A contagem de dias usa o fuso `America/Sao_Paulo`.
   link:'https://...',                // landing da imersão → link secundário
 
   // ── venda ───────────────────────────────────────────────────────
-  checkout: LOJA + '/wwk9630-jitshouse-caraiva',  // null = cai no WhatsApp
-  preco:'R$ 1.790',                  // só aparece se houver checkout
-  precoDe:'R$ 2.090',                // opcional, riscado
-  off:'-15%'                         // opcional, selo de desconto
+  checkout: LOJA + '/wwk9630-jitshouse-caraiva'   // null = cai no WhatsApp
 }
 ```
 
 **Publicar uma imersão nova na loja = colar a URL do produto em `checkout`.**
 Nada mais muda: o botão troca de "Quero saber mais" para "Garantir minha vaga",
-o preço aparece, a micro-copy de pagamento entra, o `offers` do Schema.org é
-gerado e a barra fixa do mobile passa a apontar pro checkout.
+a micro-copy de pagamento entra, o `offers` do Schema.org é gerado e a barra
+fixa do mobile passa a apontar pro checkout.
+
+**Não existe campo de preço** — ver a seção abaixo.
 
 Sem foto própria, use `foto:null` + `placa:'img/…'` — a faixa vira uma placa
 verde com o selo postal do destino (é o caso da Costa Rica hoje).
 
-### Regras de preço (aplicadas em código, não na confiança)
+### O site não exibe preço
 
-- **Preço nunca aparece sem checkout.** Mesmo que `preco` esteja preenchido,
-  ele só renderiza se houver `checkout` — é o checkout que torna o valor público.
-- **Checkout ativo nunca esconde o preço.** Se você preencher `checkout` e
-  esquecer `preco`, o console avisa no carregamento.
-- O valor exibido tem que ser **idêntico ao da loja**. Os atuais foram
-  conferidos um a um em `loja.infinitepay.io/jitshouse_lifestyle`.
+Por decisão da marca, **nenhum valor aparece nesta página**. Quem quer saber o
+preço clica em "Garantir minha vaga" e vê no checkout, que é a fonte única do
+valor. A micro-copy sob o botão avisa: *"Valores e pagamento seguro na loja
+oficial · InfinitePay"*.
+
+Isso vale para a página inteira, não só para o que está visível:
+
+- Não há campo de preço no array — de propósito. Assim o site nunca mostra um
+  número defasado em relação à loja.
+- O `offers` do Schema.org leva só a **URL** e a disponibilidade, **sem
+  `price`** — com preço, o valor voltaria a ser público no código-fonte e nos
+  resultados do Google.
+- Se alguém colar um campo `preco` numa imersão, o console avisa no
+  carregamento em vez de deixar o valor vazar pra página.
+
+Os valores atuais ficam registrados só aqui embaixo, como referência interna.
 
 ---
 
@@ -82,7 +91,8 @@ verde com o selo postal do destino (é o caso da Costa Rica hoje).
 | Semana do evento (05/09/2026) | Aniversário = PRÓXIMA · "acontecendo agora" |
 | Uma imersão passou (20/09/2026) | Aniversário some · Caraíva vira PRÓXIMA · 3 Events no JSON-LD |
 | Tudo encerrado (01/03/2027) | Bloco de lista de espera · barra e menu viram WhatsApp |
-| Imersão **sem** checkout | Botão vira "Quero saber mais" → WhatsApp · preço some · sem `offers` |
+| Imersão **sem** checkout | Botão vira "Quero saber mais" → WhatsApp · sem micro-copy · sem `offers` |
+| Página inteira | Nenhum "R$" no texto renderizado **nem no código-fonte** |
 | Próxima **sem** checkout | Barra fixa do mobile vai pro WhatsApp (`target=_blank`) |
 
 Também verificado: 390 / 768 / 1200 / 1600 px sem scroll horizontal ·
@@ -94,7 +104,10 @@ Também verificado: 390 / 768 / 1200 / 1600 px sem scroll horizontal ·
 ## Checkouts na loja InfinitePay
 
 Titular **Rodrigo de Mello Klippel**. As quatro imersões já têm produto
-publicado — conferidos na vitrine da loja em 24/08/2026:
+publicado — conferidos na vitrine da loja em 24/08/2026.
+
+> Os preços abaixo são **referência interna**: o site não os exibe (ver "O site
+> não exibe preço"). Quem edita o array só precisa da URL do produto.
 
 | Imersão | Produto na loja | Preço |
 |---|---|---|
@@ -112,11 +125,11 @@ imersão correspondente:
 - **Réveillon** — "Réveillon: Jitshouse x Satya Yoga · 28 de Dezembro a 02 de
   Janeiro · Santa Teresa, Costa Rica"
 
-> **[VALIDAR]** A micro-copy sob o botão diz "Pagamento seguro na loja oficial ·
-> InfinitePay". As formas de pagamento aceitas não foram confirmadas (a
+> **[VALIDAR]** A micro-copy sob o botão diz "Valores e pagamento seguro na loja
+> oficial · InfinitePay". As formas de pagamento aceitas não foram confirmadas (a
 > InfinitePay só as mostra depois do "Comprar agora"). Confirmado Pix/cartão/
 > parcelamento, trocar a constante `SELO_PAGAMENTO` por
-> `'Pagamento seguro via InfinitePay — Pix, cartão e parcelamento'`.
+> `'Valores e pagamento seguro via InfinitePay — Pix, cartão e parcelamento'`.
 
 ---
 
