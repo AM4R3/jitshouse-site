@@ -103,9 +103,14 @@ publicado — conferidos na vitrine da loja em 24/08/2026:
 | Esquenta Costa Rica | `hlm5888-praia-do-rosa-preview-costa-rica` | R$ 2.190 (de R$ 2.590, -15%) |
 | Réveillon Costa Rica | `ooe9249-jitshouse-costa-rica` | R$ 8.990 (de R$ 9.699,90, -7%) |
 
-> **[CONFERIR]** O produto do Esquenta se chama "Praia do Rosa Preview Costa
-> Rica" na loja. Pelo local (Praia do Rosa) e pela função (preview do Réveillon
-> na Costa Rica) é o Esquenta de 10–12 out — vale o Rodrigo confirmar.
+Cada produto foi aberto e conferido — título, preço e descrição batem com a
+imersão correspondente:
+
+- **Caraíva** — "Data 25,26 e 27 de setembro · Pousada Kamaiura · Dojo Caraiva"
+- **Esquenta** — o produto se chama "Praia do Rosa Preview Costa Rica", e a
+  descrição diz **"10 a 12 de outubro"**: é este Esquenta
+- **Réveillon** — "Réveillon: Jitshouse x Satya Yoga · 28 de Dezembro a 02 de
+  Janeiro · Santa Teresa, Costa Rica"
 
 > **[VALIDAR]** A micro-copy sob o botão diz "Pagamento seguro na loja oficial ·
 > InfinitePay". As formas de pagamento aceitas não foram confirmadas (a
@@ -158,7 +163,6 @@ O ouro original (`#C5B178`) **não** passa sobre papel (1.6:1); por isso existe 
 - [ ] Landings de Caraíva / Esquenta / Réveillon → preencher `link:` (o checkout
       já está ligado; a landing entra como link secundário "Ver a imersão")
 - [ ] Confirmar formas de pagamento e liberar a micro-copy completa
-- [ ] Confirmar que "Praia do Rosa Preview Costa Rica" é mesmo o Esquenta
 - [ ] Ao publicar no domínio final, trocar as URLs `jitshouse.com` do `<head>`
       (canonical, og:url, og:image) e do JSON-LD
 
