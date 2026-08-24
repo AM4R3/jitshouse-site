@@ -308,6 +308,39 @@ body::before{
   letter-spacing:.16em; font-size:var(--fs-micro);
 }
 .faixa__topo{display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; margin-bottom:1rem; min-height:1px}
+
+/* bloco de compra — só existe quando a imersão tem checkout */
+.faixa__preco{display:flex; align-items:baseline; gap:.7rem; flex-wrap:wrap; margin:0 0 1.1rem}
+.faixa__preco b{
+  font-family:"DM Serif Display",Georgia,serif; font-weight:400;
+  font-size:clamp(1.7rem,3.4vw,2.4rem); color:var(--verde-rosa); line-height:1;
+}
+.faixa__preco s{
+  font-family:Oswald,sans-serif; font-weight:300; font-size:var(--fs-micro);
+  letter-spacing:.1em; color:var(--mute-papel); text-decoration-thickness:1px;
+}
+.faixa__off{
+  padding:.28rem .55rem; background:var(--verde-rosa); color:var(--papel); border-radius:1px;
+  font-family:Oswald,sans-serif; font-weight:500; letter-spacing:.12em; font-size:var(--fs-micro);
+}
+.faixa__micro{
+  display:flex; align-items:center; gap:.5rem; margin:.9rem 0 0;
+  font-family:Oswald,sans-serif; font-weight:300; text-transform:uppercase;
+  letter-spacing:.1em; font-size:var(--fs-micro); color:var(--mute-papel);
+}
+.faixa__micro::before{
+  content:""; width:13px; height:13px; flex:none; background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 20 5v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5Z' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 20 5v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5Z' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.faixa__sec{display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; margin:1.1rem 0 0; padding:0; list-style:none}
+.faixa__sec a{
+  text-decoration:none; font-family:Oswald,sans-serif; font-weight:300;
+  text-transform:uppercase; letter-spacing:.13em; font-size:var(--fs-micro);
+  color:var(--verde-rosa); border-bottom:1px solid rgba(147,92,14,.45); padding-bottom:2px;
+  transition:border-color .3s var(--ease);
+}
+.faixa__sec a:hover{border-bottom-color:var(--ouro-dia)}
 .badge{
   display:inline-flex; align-items:center; gap:.45rem; padding:.35rem .75rem;
   background:var(--ouro-dia); color:var(--papel); border-radius:1px;
@@ -685,11 +718,31 @@ body.tem-barra{padding-bottom:60px}
      foto    · caminho sem extensão (webp + jpg) — ou null
      placa   · imagem de fundo da placa quando não há foto própria
      alt     · texto alternativo da foto
-     link    · URL da landing da imersão (tem prioridade)
-     wa      · true → CTA vai pro WhatsApp com mensagem da imersão
-     cta     · texto do botão
+     link    · URL da landing da imersão (vira link secundário)
+
+     ── VENDA ──────────────────────────────────────────────────────
+     checkout · URL do produto na loja InfinitePay.
+                PREENCHIDO → botão "Garantir minha vaga" vende direto
+                NULL       → botão "Quero saber mais" cai no WhatsApp
+                Publicar uma imersão nova = colar esta URL. Só isso.
+     preco    · 'R$ 490'  — opcional; só aparece se houver checkout
+     precoDe  · 'R$ 590'  — opcional, riscado ao lado
+     off      · '-17%'    — opcional, selo de desconto
+
+     REGRA: preço nunca aparece sem checkout. E checkout com preço
+     conhecido nunca esconde o preço — se você preencher checkout e
+     deixar preco vazio, o console avisa.
    ══════════════════════════════════════════════════════════════════ */
 var WHATS = '5551999041589';
+var LOJA  = 'https://loja.infinitepay.io/jitshouse_lifestyle';
+
+/* Micro-copy que acompanha todo botão de compra.
+   [VALIDAR] Confirmado: o checkout é o da loja oficial da Jitshouse na
+   InfinitePay (titular Rodrigo de Mello Klippel). As formas de pagamento
+   aceitas NÃO foram confirmadas — a InfinitePay só as mostra depois do
+   "Comprar agora". Assim que o Rodrigo confirmar, trocar por:
+   'Pagamento seguro via InfinitePay — Pix, cartão e parcelamento'        */
+var SELO_PAGAMENTO = 'Pagamento seguro na loja oficial · InfinitePay';
 
 var IMERSOES = [
   {
@@ -703,7 +756,8 @@ var IMERSOES = [
     tag:null,
     foto:'img/dest-rosa', alt:'Vista aérea da enseada da Praia do Rosa, mar turquesa e mata.',
     link:'https://jitshouse-aniversario.vercel.app/',
-    cta:'Ver a imersão'
+    preco:'R$ 490', precoDe:'R$ 590', off:'-17%',
+    checkout: LOJA + '/yne5701-ticket-silver-aniversario-jitshouse'
   },
   {
     id:'caraiva',
@@ -716,8 +770,8 @@ var IMERSOES = [
     tag:'Treine. Explore. Evolua.',
     foto:'img/dest-caraiva', alt:'Vista aérea de Caraíva, onde o rio encontra o mar, com a vila entre coqueiros.',
     /* [SUBSTITUIR] quando a landing de Caraíva existir: link:'...' */
-    wa:true,
-    cta:'Quero saber mais'
+    preco:'R$ 1.790',
+    checkout: LOJA + '/wwk9630-jitshouse-caraiva'
   },
   {
     id:'esquenta',
@@ -729,8 +783,10 @@ var IMERSOES = [
     copy:'O esquenta oficial para o Réveillon na Costa Rica. Um fim de semana na Praia do Rosa para aquecer o que vem pela virada do ano.',
     tag:'Em parceria com Satya on the Road',
     foto:'img/dest-esquenta', alt:'Pôr do sol sobre o mar na Praia do Rosa, visto por entre a vegetação da restinga.',
-    wa:true,
-    cta:'Quero saber mais'
+    preco:'R$ 2.190', precoDe:'R$ 2.590', off:'-15%',
+    /* [CONFERIR] produto "Praia do Rosa Preview Costa Rica" na loja —
+       é o Esquenta (Praia do Rosa, preview do Réveillon na Costa Rica) */
+    checkout: LOJA + '/hlm5888-praia-do-rosa-preview-costa-rica'
   },
   {
     id:'reveillon',
@@ -744,8 +800,8 @@ var IMERSOES = [
     /* [SUBSTITUIR] foto própria da Costa Rica. Até lá, a placa usa a
        textura do material oficial do evento + o selo do destino. */
     foto:null, placa:'img/dest-costarica.webp',
-    wa:true,
-    cta:'Quero saber mais'
+    preco:'R$ 8.990', precoDe:'R$ 9.699,90', off:'-7%',
+    checkout: LOJA + '/ooe9249-jitshouse-costa-rica'
   }
 ];
 
@@ -798,10 +854,69 @@ function selo(s,i,cls){
 var ativas = IMERSOES.filter(function(im){ return im.fim >= HOJE; })
                      .sort(function(a,b){ return a.inicio < b.inicio ? -1 : 1; });
 
-function linkDe(im){
-  if(im.link) return im.link;
-  var msg = 'Olá! Quero informações sobre a imersão ' + im.nome + ' (' + im.datas + ')';
+/* WhatsApp com mensagem citando a imersão — canal de dúvidas sempre */
+function zapDe(im, duvida){
+  var msg = duvida
+    ? 'Olá! Tenho uma dúvida sobre a imersão ' + im.nome + ' (' + im.datas + ')'
+    : 'Olá! Quero informações sobre a imersão ' + im.nome + ' (' + im.datas + ')';
   return 'https://wa.me/' + WHATS + '?text=' + encodeURIComponent(msg);
+}
+
+/* O destino de venda da imersão: checkout se existir, senão WhatsApp.
+   É esta função que a faixa e a barra fixa do mobile compartilham —
+   por isso as duas nunca divergem. */
+function destinoDe(im){
+  return im.checkout
+    ? { url:im.checkout, checkout:true,  rotulo:'Garantir minha vaga' }
+    : { url:zapDe(im),   checkout:false, rotulo:'Quero saber mais' };
+}
+
+/* 'R$ 2.190' → '2190.00' · 'R$ 9.699,90' → '9699.90' (p/ o Schema.org) */
+function precoNum(v){
+  if(!v) return null;
+  var n = String(v).replace(/[^\d.,]/g,'').replace(/\./g,'').replace(',','.');
+  return n ? Number(n).toFixed(2) : null;
+}
+
+/* Avisa no console se um checkout ativo estiver sem preço à mostra. */
+IMERSOES.forEach(function(im){
+  if(im.checkout && !im.preco && window.console)
+    console.warn('[jitshouse] "' + im.nome + '" tem checkout mas nenhum preço — o valor está público na loja e escondido no site.');
+  if(!im.checkout && im.preco && window.console)
+    console.warn('[jitshouse] "' + im.nome + '" tem preço mas nenhum checkout — o preço não será exibido.');
+});
+
+/* O bloco de conversão. Uma imersão com checkout vende aqui mesmo;
+   sem checkout, conversa no WhatsApp. O preço só existe no primeiro
+   caso — é o checkout que torna o valor público. */
+function compra(im, prox){
+  var d = destinoDe(im);
+  var out = '';
+
+  if(d.checkout && im.preco){
+    out += '<p class="faixa__preco"><b>' + im.preco + '</b>'
+        +  (im.precoDe ? '<s>' + im.precoDe + '</s>' : '')
+        +  (im.off ? '<span class="faixa__off">' + im.off + '</span>' : '')
+        +  '</p>';
+  }
+
+  out += '<p style="margin:0"><a class="btn ' + (prox || d.checkout ? 'btn--solido' : 'btn--linha') + '"'
+      +  ' href="' + d.url + '"'
+      /* checkout abre na mesma aba; WhatsApp abre fora */
+      +  (d.checkout ? '' : ' target="_blank" rel="noopener"') + '>'
+      +  d.rotulo + ' <span class="seta" aria-hidden="true">→</span></a></p>';
+
+  if(d.checkout){
+    out += '<p class="faixa__micro">' + SELO_PAGAMENTO + '</p>';
+  }
+
+  /* secundários: a página de venda (quando existe) e as dúvidas */
+  var sec = '';
+  if(im.link)   sec += '<li><a href="' + im.link + '" target="_blank" rel="noopener">Ver a imersão →</a></li>';
+  if(d.checkout)sec += '<li><a href="' + zapDe(im, true) + '" target="_blank" rel="noopener">Dúvidas? Fala com a gente</a></li>';
+  if(sec) out += '<ul class="faixa__sec">' + sec + '</ul>';
+
+  return out;
 }
 
 function faixa(im,i){
@@ -843,9 +958,7 @@ function faixa(im,i){
     + '<p class="rotulo rotulo--fino faixa__local">' + im.local + '</p>'
     + '<p class="faixa__copy">' + im.copy + '</p>'
     + (im.tag ? '<p class="faixa__tag">' + im.tag + '</p>' : '')
-    + '<p style="margin:0"><a class="btn ' + (prox ? 'btn--solido' : 'btn--linha') + '" href="' + linkDe(im) + '"'
-    + (im.link ? ' target="_blank" rel="noopener"' : ' target="_blank" rel="noopener"') + '>'
-    + im.cta + ' <span class="seta" aria-hidden="true">→</span></a></p>'
+    + compra(im, prox)
     + '</div></article>';
 }
 
@@ -866,8 +979,14 @@ var barra = document.getElementById('barra');
 var ctaNav = document.getElementById('cta-nav');
 if(ativas.length){
   var p = ativas[0];
-  barra.setAttribute('href', '#im-' + p.id);
-  barra.innerHTML = '<span>Próxima imersão — ' + p.nome + '</span>';
+  var dp = destinoDe(p);
+  /* a barra herda o destino da próxima imersão: checkout se houver,
+     WhatsApp se não — nunca diverge do botão da faixa */
+  barra.setAttribute('href', dp.url);
+  if(!dp.checkout){ barra.setAttribute('target','_blank'); barra.setAttribute('rel','noopener'); }
+  barra.innerHTML = '<span>' + (dp.checkout ? 'Garantir vaga' : 'Próxima imersão')
+                  + ' — ' + p.nome + '</span>';
+  /* o CTA do menu continua sendo navegação: leva à oferta na página */
   ctaNav.setAttribute('href', '#im-' + p.id);
 }else{
   var espera = 'https://wa.me/' + WHATS + '?text=' + encodeURIComponent('Olá! Quero entrar na lista de espera das próximas imersões da Jitshouse.');
@@ -910,6 +1029,14 @@ if(DEPOIMENTOS.length){
           addressCountry: im.selo.l2 === 'COSTA RICA' ? 'CR' : 'BR'}}
     };
     if(im.foto) e.image = base + im.foto + '.jpg';
+    if(im.checkout){
+      e.offers = {
+        '@type':'Offer', url:im.checkout, priceCurrency:'BRL',
+        availability:'https://schema.org/InStock', validFrom: HOJE
+      };
+      var pn = precoNum(im.preco);
+      if(pn) e.offers.price = pn;
+    }
     return e;
   });
   var s = document.createElement('script');

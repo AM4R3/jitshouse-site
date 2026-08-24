@@ -21,9 +21,12 @@ sozinho:
 |---|---|
 | Imersão com `fim` no passado | Some do calendário sozinha |
 | Próxima imersão futura | Ganha o selo **PRÓXIMA** e a linha "faltam X dias" |
-| Barra fixa do mobile e CTA do menu | Passam a apontar para a próxima imersão |
+| Imersão **com** `checkout` | Botão **"Garantir minha vaga"** vende direto (mesma aba) + preço |
+| Imersão **sem** `checkout` | Botão **"Quero saber mais"** cai no WhatsApp, sem preço |
+| Barra fixa do mobile | Herda o destino da próxima imersão: checkout ou WhatsApp |
+| CTA do menu | Rola até a oferta da próxima imersão (`#im-…`) |
 | Array vazio | Aparece o bloco "Novas imersões em breve" com lista de espera |
-| `Event` do Schema.org | Gerado a partir do mesmo array (só imersões ativas) |
+| `Event` do Schema.org | Gerado do mesmo array; ganha `offers` quando há checkout |
 | `©` do rodapé | Ano automático |
 
 A contagem de dias usa o fuso `America/Sao_Paulo`.
@@ -42,17 +45,32 @@ A contagem de dias usa o fuso `America/Sao_Paulo`.
   tag:'Treine. Explore. Evolua.',    // opcional (parceria/assinatura)
   foto:'img/dest-caraiva',           // sem extensão: usa .webp e .jpg
   alt:'...',
-  link:'https://...',                // landing própria (tem prioridade), OU
-  wa:true,                           // CTA vai pro WhatsApp com msg da imersão
-  cta:'Quero saber mais'
+  link:'https://...',                // landing da imersão → link secundário
+
+  // ── venda ───────────────────────────────────────────────────────
+  checkout: LOJA + '/wwk9630-jitshouse-caraiva',  // null = cai no WhatsApp
+  preco:'R$ 1.790',                  // só aparece se houver checkout
+  precoDe:'R$ 2.090',                // opcional, riscado
+  off:'-15%'                         // opcional, selo de desconto
 }
 ```
 
-Quando a landing de Caraíva / Esquenta / Réveillon existir, troque `wa:true`
-por `link:'https://...'`.
+**Publicar uma imersão nova na loja = colar a URL do produto em `checkout`.**
+Nada mais muda: o botão troca de "Quero saber mais" para "Garantir minha vaga",
+o preço aparece, a micro-copy de pagamento entra, o `offers` do Schema.org é
+gerado e a barra fixa do mobile passa a apontar pro checkout.
 
 Sem foto própria, use `foto:null` + `placa:'img/…'` — a faixa vira uma placa
 verde com o selo postal do destino (é o caso da Costa Rica hoje).
+
+### Regras de preço (aplicadas em código, não na confiança)
+
+- **Preço nunca aparece sem checkout.** Mesmo que `preco` esteja preenchido,
+  ele só renderiza se houver `checkout` — é o checkout que torna o valor público.
+- **Checkout ativo nunca esconde o preço.** Se você preencher `checkout` e
+  esquecer `preco`, o console avisa no carregamento.
+- O valor exibido tem que ser **idêntico ao da loja**. Os atuais foram
+  conferidos um a um em `loja.infinitepay.io/jitshouse_lifestyle`.
 
 ---
 
@@ -64,6 +82,8 @@ verde com o selo postal do destino (é o caso da Costa Rica hoje).
 | Semana do evento (05/09/2026) | Aniversário = PRÓXIMA · "acontecendo agora" |
 | Uma imersão passou (20/09/2026) | Aniversário some · Caraíva vira PRÓXIMA · 3 Events no JSON-LD |
 | Tudo encerrado (01/03/2027) | Bloco de lista de espera · barra e menu viram WhatsApp |
+| Imersão **sem** checkout | Botão vira "Quero saber mais" → WhatsApp · preço some · sem `offers` |
+| Próxima **sem** checkout | Barra fixa do mobile vai pro WhatsApp (`target=_blank`) |
 
 Também verificado: 390 / 768 / 1200 / 1600 px sem scroll horizontal ·
 `prefers-reduced-motion` neutraliza todo o movimento · sem JS existe um
@@ -71,10 +91,34 @@ Também verificado: 390 / 768 / 1200 / 1600 px sem scroll horizontal ·
 
 ---
 
+## Checkouts na loja InfinitePay
+
+Titular **Rodrigo de Mello Klippel**. As quatro imersões já têm produto
+publicado — conferidos na vitrine da loja em 24/08/2026:
+
+| Imersão | Produto na loja | Preço |
+|---|---|---|
+| Aniversário Jitshouse | `yne5701-ticket-silver-aniversario-jitshouse` | R$ 490 (de R$ 590, -17%) |
+| On The Road Caraíva | `wwk9630-jitshouse-caraiva` | R$ 1.790 |
+| Esquenta Costa Rica | `hlm5888-praia-do-rosa-preview-costa-rica` | R$ 2.190 (de R$ 2.590, -15%) |
+| Réveillon Costa Rica | `ooe9249-jitshouse-costa-rica` | R$ 8.990 (de R$ 9.699,90, -7%) |
+
+> **[CONFERIR]** O produto do Esquenta se chama "Praia do Rosa Preview Costa
+> Rica" na loja. Pelo local (Praia do Rosa) e pela função (preview do Réveillon
+> na Costa Rica) é o Esquenta de 10–12 out — vale o Rodrigo confirmar.
+
+> **[VALIDAR]** A micro-copy sob o botão diz "Pagamento seguro na loja oficial ·
+> InfinitePay". As formas de pagamento aceitas não foram confirmadas (a
+> InfinitePay só as mostra depois do "Comprar agora"). Confirmado Pix/cartão/
+> parcelamento, trocar a constante `SELO_PAGAMENTO` por
+> `'Pagamento seguro via InfinitePay — Pix, cartão e parcelamento'`.
+
+---
+
 ## Dados reais
 
 - **WhatsApp** 55 51 99904-1589 — resolvido de `wa.link/62tfjd`, o link oficial
-  publicado em jitshouse.com
+  publicado em jitshouse.com. Segue como canal de dúvidas em todas as faixas
 - **Loja** https://loja.infinitepay.io/jitshouse_lifestyle
 - **E-mail** jitshousepraiadorosa@gmail.com
 - **Instagram** @jitshouselifestyle · @rodrigoklippelbjj · @jitshousepraiadorosa
@@ -111,7 +155,10 @@ O ouro original (`#C5B178`) **não** passa sobre papel (1.6:1); por isso existe 
 - [ ] Depoimentos reais autorizados → array `DEPOIMENTOS` (hoje vazio; o bloco só
       aparece quando houver conteúdo real — nada de prova social fabricada)
 - [ ] Foto própria da Costa Rica (hoje a placa usa a textura do material oficial)
-- [ ] Landings de Caraíva / Esquenta / Réveillon → trocar `wa:true` por `link:`
+- [ ] Landings de Caraíva / Esquenta / Réveillon → preencher `link:` (o checkout
+      já está ligado; a landing entra como link secundário "Ver a imersão")
+- [ ] Confirmar formas de pagamento e liberar a micro-copy completa
+- [ ] Confirmar que "Praia do Rosa Preview Costa Rica" é mesmo o Esquenta
 - [ ] Ao publicar no domínio final, trocar as URLs `jitshouse.com` do `<head>`
       (canonical, og:url, og:image) e do JSON-LD
 
