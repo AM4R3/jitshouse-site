@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!--
+═══════════════════════════════════════════════════════════════════════
+  JITSHOUSE LIFESTYLE  ·  SITE INSTITUCIONAL
+  ───────────────────────────────────────────────────────────────────
+  Esta é a CASA DIGITAL da marca. Não confundir com as landings de
+  venda de cada imersão (ex.: jitshouse-aniversario.vercel.app).
+  Aqui moram o manifesto, o fundador, a casa e o CALENDÁRIO — que
+  aponta para a landing de cada evento.
+
+  ★ COMO ATUALIZAR O CALENDÁRIO
+    Tudo vive no array IMERSOES, no <script> no fim deste arquivo.
+    · Adicionar imersão → cole um objeto novo no array.
+    · Imersão com "fim" no passado SOME sozinha da página.
+    · A próxima imersão futura ganha o selo "PRÓXIMA" e a contagem
+      "faltam X dias" (fuso America/Sao_Paulo) — no calendário, na
+      barra fixa do mobile e no CTA do menu.
+    · Array vazio → aparece o bloco de lista de espera.
+    · O © do rodapé e os Eventos do Schema.org saem do mesmo array.
+
+  ── DADOS REAIS USADOS ────────────────────────────────────────────
+  WHATSAPP .... 55 51 99904-1589 (resolvido de wa.link/62tfjd, o link
+                oficial publicado em jitshouse.com)
+  LOJA ........ https://loja.infinitepay.io/jitshouse_lifestyle
+  E-MAIL ...... jitshousepraiadorosa@gmail.com
+  INSTAGRAM ... @jitshouselifestyle · @rodrigoklippelbjj
+                · @jitshousepraiadorosa
+  PALETA ...... amostrada dos ativos oficiais (brasão + cards).
+                O verde real da marca é #04211E / #004030 — mais
+                profundo que a estimativa do brief (#123B2A).
+  COPYS ....... as frases de cada imersão foram transcritas dos
+                cards oficiais publicados em jitshouse.com.
+
+  ── PENDENTE ([SUBSTITUIR] no corpo) ──────────────────────────────
+  · Bio completa do Rodrigo (faixa, linhagem, anos de tatame)
+  · Depoimentos reais autorizados → array DEPOIMENTOS (hoje vazio;
+    o bloco só aparece quando houver depoimento real — nada de
+    prova social fabricada)
+  · Foto própria da Costa Rica (hoje a placa usa a textura do
+    material oficial + selo)
+  · Landings próprias de Caraíva / Esquenta / Réveillon → trocar
+    "wa:true" por "link:'...'" no objeto da imersão
+  · Domínio final: trocar as URLs jitshouse.com ao publicar
+═══════════════════════════════════════════════════════════════════════
+-->
+
+<title>Jitshouse Lifestyle — Imersões de Jiu-Jitsu e Autoconhecimento · Praia do Rosa, Caraíva e Costa Rica</title>
+<meta name="description" content="Jiu-jitsu + autoconhecimento. Criei a Jitshouse para provar que o jiu-jitsu vai além do tatame. Imersões em lugares que transformam — Praia do Rosa, Caraíva e Costa Rica. Venha viver mais.">
+<link rel="canonical" href="https://jitshouse.com/">
+<meta name="theme-color" content="#F0E8D6">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jitshouse Lifestyle">
+<meta property="og:title" content="Jitshouse Lifestyle — O jiu-jitsu vai além do tatame">
+<meta property="og:description" content="Imersões de jiu-jitsu e autoconhecimento em lugares que transformam. Praia do Rosa, Caraíva e Costa Rica.">
+<meta property="og:url" content="https://jitshouse.com/">
+<meta property="og:image" content="https://jitshouse.com/img/og.jpg">
+<meta property="og:image:alt" content="Surfista numa onda na Praia do Rosa, com a frase: o jiu-jitsu vai além do tatame.">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="img/favicon.png">
+<link rel="preload" as="image" href="img/hero-onda.webp" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500&family=Oswald:wght@300;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","@id":"https://jitshouse.com/#org",
+"name":"Jitshouse Lifestyle","url":"https://jitshouse.com/","logo":"https://jitshouse.com/img/brasao.webp",
+"image":"https://jitshouse.com/img/og.jpg",
+"description":"Imersões de jiu-jitsu e autoconhecimento em lugares que transformam. Base na Praia do Rosa, Imbituba, Santa Catarina.",
+"email":"jitshousepraiadorosa@gmail.com","founder":{"@type":"Person","name":"Rodrigo Klippel"},
+"address":{"@type":"PostalAddress","addressLocality":"Imbituba","addressRegion":"SC","addressCountry":"BR"},
+"sameAs":["https://www.instagram.com/jitshouselifestyle/","https://www.instagram.com/rodrigoklippelbjj/","https://www.instagram.com/jitshousepraiadorosa/","https://loja.infinitepay.io/jitshouse_lifestyle"]}
+</script>
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   O CLUBE À LUZ DO DIA
+   A landing do evento é NOITE (verde dominante na página inteira).
+   Este site é DIA: papel de pôster dominante, verde em faixas
+   pontuais. Cores amostradas dos ativos oficiais da Jitshouse.
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --papel:      #F0E8D6;   /* DOMINANTE — papel de pôster vintage */
+  --papel-alto: #F7F1E4;   /* cards e respiro sobre papel */
+  --floresta:   #04211E;   /* faixas escuras pontuais (real da marca) */
+  --floresta-2: #01100F;   /* CTA final e rodapé */
+  --verde-rosa: #004030;   /* verde da rosa do brasão — 9.7:1 no papel */
+  --ouro:       #C5B178;   /* aro do brasão — 8.0:1 na floresta */
+  --areia:      #F9DA85;   /* triângulo do brasão — 12.4:1 na floresta */
+  --ouro-dia:   #935C0E;   /* o ouro da marca rebaixado p/ papel — 4.6:1 */
+  --areia-sol:  #D98E3B;   /* acento tropical, só preenchimento */
+  --tinta:      #1C2420;   /* corpo de texto no papel — 13.0:1 */
+  --mute-papel: #4A554F;   /* secundário no papel — 6.4:1 */
+  --mute-esc:   #A7BCB2;   /* secundário na floresta — 8.4:1 */
+
+  --fs-hero: clamp(2.8rem, 8.5vw, 6.5rem);
+  --fs-h2:   clamp(2rem, 5vw, 3.5rem);
+  --fs-h3:   clamp(1.35rem, 2.6vw, 2rem);
+  --fs-body: clamp(1rem, 1.4vw, 1.125rem);
+  --fs-micro:clamp(.67rem, 1.05vw, .76rem);
+
+  --gut: clamp(1.25rem, 5vw, 4.5rem);
+  --max: 1180px;
+  --ease: cubic-bezier(.22,1,.36,1);
+  --nav-h: 66px;
+
+  --grao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 12px)}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font:400 var(--fs-body)/1.7 Inter,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img{max-width:100%; display:block}
+a{color:inherit}
+::selection{background:var(--verde-rosa); color:var(--papel)}
+:focus-visible{outline:2px solid var(--ouro-dia); outline-offset:3px; border-radius:2px}
+.dark :focus-visible,.dark--fundo :focus-visible{outline-color:var(--areia)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wrap{max-width:var(--max); margin-inline:auto; padding-inline:var(--gut)}
+.sec{padding-block:clamp(4.5rem,11vw,9rem); position:relative}
+
+/* textura de papel — a página inteira é impressa */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9;
+  background-image:var(--grao); opacity:.04; mix-blend-mode:multiply;
+}
+.dark{background:var(--floresta); color:var(--papel)}
+.dark--fundo{background:var(--floresta-2); color:var(--papel)}
+
+/* ── tipografia ──────────────────────────────────────────────────── */
+.display{
+  font-family:"DM Serif Display",Georgia,serif; font-weight:400;
+  line-height:1.04; letter-spacing:-.005em; margin:0; text-wrap:balance;
+  color:var(--verde-rosa);
+}
+.dark .display,.dark--fundo .display{color:var(--papel)}
+.display em{font-style:italic; color:var(--ouro-dia)}
+.dark .display em,.dark--fundo .display em{color:var(--areia)}
+.rotulo{
+  font-family:Oswald,"Arial Narrow",sans-serif; font-weight:500;
+  text-transform:uppercase; letter-spacing:.15em; font-size:var(--fs-micro);
+  line-height:1.5; margin:0;
+}
+.rotulo--fino{font-weight:300; letter-spacing:.22em}
+.lede{font-size:clamp(1.05rem,1.9vw,1.3rem); line-height:1.65; color:var(--mute-papel); max-width:56ch}
+.dark .lede,.dark--fundo .lede{color:var(--mute-esc)}
+
+/* rótulo de seção — brasão minúsculo + filete.
+   (a landing usa numeração "01 —"; aqui NUNCA) */
+.marca-sec{display:flex; align-items:center; gap:.75rem; margin:0 0 1.4rem; color:var(--ouro-dia)}
+.marca-sec::before{
+  content:""; width:16px; height:16px; flex:none; opacity:.85; background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3 22 20H2Z' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='15' r='2.6' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3 22 20H2Z' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='15' r='2.6' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.marca-sec::after{content:""; flex:1; height:1px; background:currentColor; opacity:.3}
+.dark .marca-sec,.dark--fundo .marca-sec{color:var(--ouro)}
+
+/* moldura de filete duplo — assinatura de pôster impresso */
+.moldura{position:relative; padding:clamp(1.8rem,5vw,4rem)}
+.moldura::before,.moldura::after{content:""; position:absolute; inset:0; pointer-events:none; border:1px solid var(--verde-rosa)}
+.moldura::before{opacity:.55}
+.moldura::after{inset:6px; opacity:.28}
+.dark .moldura::before,.dark .moldura::after{border-color:var(--ouro)}
+
+.carimbo{width:clamp(58px,7vw,84px); height:auto}
+
+/* ── botões ──────────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex; align-items:center; gap:.6rem; text-decoration:none;
+  font-family:Oswald,sans-serif; font-weight:500; text-transform:uppercase;
+  letter-spacing:.13em; font-size:var(--fs-micro); line-height:1;
+  padding:1.05rem 1.7rem; border:1px solid transparent; border-radius:1px;
+  transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.btn:hover{transform:translateY(-2px)}
+.btn--solido{background:var(--floresta); color:var(--papel)}
+.btn--solido:hover{background:var(--verde-rosa)}
+.btn--linha{border-color:var(--verde-rosa); color:var(--verde-rosa)}
+.btn--linha:hover{background:var(--verde-rosa); color:var(--papel)}
+.btn--ouro{background:var(--ouro); color:var(--floresta-2)}
+.btn--ouro:hover{background:var(--areia)}
+.btn--claro{border-color:var(--papel); color:var(--papel)}
+.btn--claro:hover{background:var(--papel); color:var(--floresta)}
+.btn--peq{padding:.72rem 1.1rem}
+.btn .seta{transition:transform .3s var(--ease)}
+.btn:hover .seta{transform:translateX(4px)}
+.btn--baixo:hover .seta{transform:translateY(3px)}
+
+/* ── nav ─────────────────────────────────────────────────────────── */
+.nav{
+  position:sticky; top:0; z-index:60; height:var(--nav-h);
+  display:flex; align-items:center; background:var(--papel);
+  border-bottom:1px solid transparent; transition:border-color .35s var(--ease), box-shadow .35s var(--ease);
+}
+.nav.rolou{border-bottom-color:rgba(0,64,48,.28); box-shadow:0 1px 0 rgba(0,64,48,.07)}
+.nav__in{display:flex; align-items:center; gap:1.5rem; width:100%}
+.nav__marca{display:flex; align-items:center; gap:.6rem; text-decoration:none; margin-right:auto}
+.nav__marca img{width:34px; height:34px}
+.nav__nome{display:flex; flex-direction:column; line-height:1}
+.nav__nome b{font-family:Oswald,sans-serif; font-weight:500; font-size:.94rem; letter-spacing:.19em; color:var(--verde-rosa)}
+.nav__nome span{font-family:Oswald,sans-serif; font-weight:300; font-size:.53rem; letter-spacing:.3em; color:var(--ouro-dia); margin-top:3px}
+.nav__links{display:none; gap:1.7rem; align-items:center}
+.nav__links a{
+  text-decoration:none; font-family:Oswald,sans-serif; font-weight:300;
+  text-transform:uppercase; letter-spacing:.16em; font-size:.72rem; color:var(--tinta);
+  padding-block:.4rem; border-bottom:1px solid transparent;
+  transition:border-color .3s var(--ease), color .3s var(--ease);
+}
+.nav__links a:hover{color:var(--verde-rosa); border-bottom-color:var(--ouro-dia)}
+.nav__cta{display:none}
+@media(min-width:900px){ .nav__links{display:flex} .nav__cta{display:inline-flex} }
+
+/* ── hero ────────────────────────────────────────────────────────── */
+.hero{
+  position:relative; min-height:calc(100svh - var(--nav-h)); display:flex; align-items:flex-end;
+  padding-block:clamp(3rem,9vw,6rem); overflow:hidden; isolation:isolate;
+}
+.hero__foto{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; object-position:60% 50%}
+.hero__veu{
+  position:absolute; inset:0; z-index:-1;
+  background:
+    linear-gradient(100deg, rgba(4,33,30,.92) 0%, rgba(4,33,30,.76) 28%, rgba(4,33,30,.34) 56%, rgba(4,33,30,0) 80%),
+    linear-gradient(to top, rgba(4,33,30,.5), rgba(4,33,30,0) 45%);
+}
+.hero__in{max-width:min(100%,790px); color:var(--papel); text-align:left}
+.hero__eyebrow{color:var(--ouro); margin-bottom:1.5rem; max-width:34ch}
+.hero h1{font-size:var(--fs-hero); margin:0 0 1.6rem; color:var(--papel)}
+.hero h1 .ln{display:block; overflow:hidden}
+.hero h1 .ln > span{display:block}
+.hero h1 em{font-style:italic; color:var(--areia)}
+.hero__sub{color:var(--papel); opacity:.94; max-width:46ch; margin:0 0 2.4rem; font-size:clamp(1rem,1.7vw,1.2rem)}
+.hero__carimbo{margin-bottom:1.9rem}
+
+/* ── manifesto ───────────────────────────────────────────────────── */
+.manifesto__grid{display:grid; gap:clamp(2rem,5vw,4rem)}
+@media(min-width:900px){ .manifesto__grid{grid-template-columns:1.12fr .88fr; align-items:start} }
+.aspas{
+  font-family:"DM Serif Display",Georgia,serif; font-size:clamp(1.6rem,3.6vw,2.7rem);
+  line-height:1.24; color:var(--verde-rosa); margin:0 0 1.4rem; text-wrap:balance;
+}
+.aspas em{font-style:italic; color:var(--ouro-dia)}
+.assina{color:var(--mute-papel); display:flex; align-items:center; gap:.7rem}
+.assina::before{content:""; width:26px; height:1px; background:var(--ouro-dia)}
+.manifesto p{margin:0 0 1.1rem}
+.manifesto__fecho{
+  font-family:"DM Serif Display",Georgia,serif; font-style:italic;
+  font-size:clamp(1.15rem,2.2vw,1.6rem); color:var(--ouro-dia); margin:2.2rem 0 0; line-height:1.3;
+}
+.manifesto__carimbo{display:flex; justify-content:flex-end; margin-bottom:1rem}
+
+/* ── selo postal (assinatura desta página) ───────────────────────── */
+.selo{width:clamp(90px,11vw,124px); height:auto; display:block; color:var(--ouro-dia); flex:none}
+.selo text{font-family:Oswald,sans-serif; font-weight:500; font-size:9.2px; fill:currentColor; letter-spacing:1.5px}
+.selo .anel,.selo .icone{fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round}
+.dark .selo{color:var(--ouro)}
+
+/* ── calendário: faixas editoriais assimétricas ──────────────────── */
+.faixa{
+  display:grid; gap:clamp(1.8rem,4vw,3rem); align-items:center;
+  padding-block:clamp(2.8rem,6vw,4.5rem); border-top:1px solid rgba(0,64,48,.18); position:relative;
+}
+.faixa:first-child{border-top:0; padding-top:clamp(1rem,3vw,2rem)}
+@media(min-width:900px){
+  .faixa{grid-template-columns:1.02fr .98fr}
+  .faixa--inv .faixa__midia{order:2}
+  .faixa--inv .faixa__txt{order:1}
+  .faixa:nth-child(odd)  .faixa__txt{padding-right:clamp(0px,3vw,3rem)}
+  .faixa:nth-child(even) .faixa__txt{padding-left:clamp(0px,3vw,3rem)}
+}
+.faixa__midia{position:relative}
+.faixa__foto{width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:1px}
+.faixa__placa{
+  width:100%; aspect-ratio:3/2; border-radius:1px; position:relative; overflow:hidden;
+  background:var(--floresta); display:grid; place-items:center;
+}
+.faixa__placa img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.55}
+.faixa__placa .selo{position:relative; width:clamp(118px,20vw,168px); color:var(--ouro)}
+.faixa__selo{position:absolute; right:-12px; bottom:-20px; z-index:2; background:var(--papel); border-radius:50%; padding:7px}
+.faixa--inv .faixa__selo{right:auto; left:-12px}
+.faixa__nome{font-size:var(--fs-h3); margin:0 0 .7rem}
+.faixa__datas{
+  font-family:Oswald,sans-serif; font-weight:300; text-transform:uppercase;
+  letter-spacing:.13em; font-size:clamp(1.05rem,2.1vw,1.4rem); color:var(--tinta); margin:0 0 .35rem;
+}
+.faixa__local{color:var(--mute-papel); margin:0 0 1.1rem}
+.faixa__copy{margin:0 0 1.4rem; color:var(--tinta); max-width:47ch}
+.faixa__tag{
+  display:inline-block; margin:0 0 1.3rem; padding:.42rem .8rem;
+  border:1px solid rgba(0,64,48,.35); color:var(--verde-rosa);
+  font-family:Oswald,sans-serif; font-weight:300; text-transform:uppercase;
+  letter-spacing:.16em; font-size:var(--fs-micro);
+}
+.faixa__topo{display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; margin-bottom:1rem; min-height:1px}
+.badge{
+  display:inline-flex; align-items:center; gap:.45rem; padding:.35rem .75rem;
+  background:var(--ouro-dia); color:var(--papel); border-radius:1px;
+  font-family:Oswald,sans-serif; font-weight:500; text-transform:uppercase;
+  letter-spacing:.15em; font-size:var(--fs-micro);
+}
+.contagem{
+  font-family:Oswald,sans-serif; font-weight:300; text-transform:uppercase;
+  letter-spacing:.15em; font-size:var(--fs-micro); color:var(--mute-papel);
+}
+.vazio{text-align:center; padding-block:clamp(2rem,6vw,4rem)}
+.vazio h3{font-size:var(--fs-h3); margin:0 0 1rem}
+
+/* ── a casa (primeira faixa escura) ──────────────────────────────── */
+.casa__topo{display:grid; gap:clamp(1.5rem,4vw,3.5rem); margin-bottom:clamp(2.5rem,6vw,4rem)}
+@media(min-width:900px){ .casa__topo{grid-template-columns:1fr 1fr; align-items:end} }
+.casa__grade{display:grid; gap:clamp(.7rem,1.6vw,1.1rem); grid-template-columns:repeat(2,1fr)}
+.casa__grade figure{margin:0; position:relative}
+.casa__grade img{width:100%; height:auto; object-fit:cover; border-radius:1px}
+.casa__f1{grid-column:1/3}
+.casa__f1 img{aspect-ratio:16/10}
+.casa__f2 img,.casa__f3 img,.casa__f4 img,.casa__f5 img{aspect-ratio:1/1}
+.casa__f5{grid-column:1/3}
+.casa__f5 img{aspect-ratio:16/9}
+@media(min-width:900px){
+  .casa__grade{grid-template-columns:repeat(12,1fr)}
+  .casa__f1{grid-column:1/8}   .casa__f1 img{aspect-ratio:16/10}
+  .casa__f2{grid-column:8/13}  .casa__f2 img{aspect-ratio:4/5}
+  .casa__f3{grid-column:1/5}   .casa__f3 img{aspect-ratio:1/1}
+  .casa__f4{grid-column:5/9}   .casa__f4 img{aspect-ratio:1/1}
+  .casa__f5{grid-column:9/13}  .casa__f5 img{aspect-ratio:1/1}
+  /* a quebra de grade da página: a foto da direita sangra a margem */
+  .casa__f2,.casa__f5{margin-right:calc(var(--gut) * -1)}
+}
+.casa__legenda{
+  font-family:Oswald,sans-serif; font-weight:300; text-transform:uppercase;
+  letter-spacing:.18em; font-size:var(--fs-micro); color:var(--mute-esc); margin-top:.55rem;
+}
+
+/* ── fundador ────────────────────────────────────────────────────── */
+.rodrigo{display:grid; gap:clamp(2rem,5vw,3.5rem)}
+@media(min-width:900px){ .rodrigo{grid-template-columns:.8fr 1.2fr; align-items:center} }
+.rodrigo__foto{position:relative; isolation:isolate}
+.rodrigo__foto img{width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; object-position:52% 22%; border-radius:1px}
+.rodrigo__foto::after{content:""; position:absolute; inset:12px -12px -12px 12px; border:1px solid var(--ouro-dia); opacity:.5; z-index:-1}
+.handles{display:flex; flex-wrap:wrap; gap:.6rem 1rem; margin:1.7rem 0 0; padding:0; list-style:none}
+.handles a{
+  text-decoration:none; font-family:Oswald,sans-serif; font-weight:300;
+  text-transform:uppercase; letter-spacing:.14em; font-size:var(--fs-micro);
+  color:var(--verde-rosa); border-bottom:1px solid rgba(147,92,14,.5); padding-bottom:2px;
+  transition:border-color .3s var(--ease);
+}
+.handles a:hover{border-bottom-color:var(--ouro-dia)}
+
+/* ── comunidade / prova social ───────────────────────────────────── */
+.comunidade{background:var(--papel-alto)}
+.comunidade__grid{display:grid; gap:clamp(2rem,5vw,3.5rem); align-items:center}
+@media(min-width:900px){ .comunidade__grid{grid-template-columns:1.05fr .95fr} }
+.comunidade__foto{width:100%; height:auto; aspect-ratio:16/11; object-fit:cover; border-radius:1px}
+.numeros{display:flex; gap:clamp(1.6rem,4vw,3rem); flex-wrap:wrap; margin:1.9rem 0 0; padding:0; list-style:none}
+.numeros b{display:block; font-family:"DM Serif Display",Georgia,serif; font-size:clamp(1.6rem,3vw,2.2rem); color:var(--verde-rosa); line-height:1}
+.numeros span{display:block; margin-top:.45rem}
+.depo{margin:clamp(2.5rem,6vw,4rem) 0 0; padding:0; display:grid; gap:clamp(1.8rem,4vw,2.6rem)}
+@media(min-width:760px){ .depo{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))} }
+.depo figure{margin:0}
+.depo blockquote{
+  margin:0; font-family:"DM Serif Display",Georgia,serif; font-style:italic;
+  font-size:clamp(1.05rem,2vw,1.3rem); line-height:1.42; color:var(--verde-rosa);
+  padding-left:1.2rem; border-left:1px solid var(--ouro-dia);
+}
+.depo figcaption{
+  font-family:Oswald,sans-serif; font-weight:300; text-transform:uppercase;
+  letter-spacing:.16em; font-size:var(--fs-micro); color:var(--mute-papel);
+  margin-top:.8rem; padding-left:1.2rem;
+}
+
+/* ── loja ────────────────────────────────────────────────────────── */
+.loja{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1.6rem}
+.loja h2{font-size:clamp(1.5rem,3vw,2.2rem); max-width:19ch}
+
+/* ── cta final ───────────────────────────────────────────────────── */
+.final{text-align:center}
+.final .carimbo{margin:0 auto 2rem}
+.final h2{font-size:var(--fs-h2); max-width:17ch; margin-inline:auto}
+.final .btn{margin-top:2.4rem}
+.final__nota{margin-top:1.6rem; color:var(--mute-esc)}
+
+/* ── rodapé ──────────────────────────────────────────────────────── */
+.rodape{padding-block:clamp(3rem,7vw,4.5rem); font-size:.92rem}
+.rodape__grid{display:grid; gap:2.2rem}
+@media(min-width:760px){ .rodape__grid{grid-template-columns:auto 1fr auto; align-items:start} }
+.rodape a{text-decoration:none; border-bottom:1px solid rgba(197,177,120,.35); transition:border-color .3s var(--ease)}
+.rodape a:hover{border-bottom-color:var(--ouro)}
+.rodape ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.55rem}
+.rodape__tit{color:var(--ouro); margin:0 0 .9rem}
+.rodape__fim{
+  margin-top:clamp(2.5rem,5vw,3.5rem); padding-top:1.5rem; border-top:1px solid rgba(197,177,120,.2);
+  display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center;
+  color:var(--mute-esc);
+}
+.credito{opacity:.35; transition:opacity .3s var(--ease); text-decoration:none; border:0}
+.credito:hover{opacity:.7}
+
+/* ── barra fixa mobile ───────────────────────────────────────────── */
+.barra{
+  position:fixed; left:0; right:0; bottom:0; z-index:70;
+  height:calc(60px + env(safe-area-inset-bottom)); padding-bottom:env(safe-area-inset-bottom);
+  background:var(--floresta); display:flex; align-items:center; justify-content:center;
+  text-decoration:none; color:var(--papel);
+  font-family:Oswald,sans-serif; font-weight:500; text-transform:uppercase;
+  letter-spacing:.13em; font-size:var(--fs-micro); text-align:center; padding-inline:1rem;
+  transform:translateY(105%); transition:transform .4s var(--ease); border-top:1px solid var(--ouro);
+}
+.barra.ver{transform:translateY(0)}
+.barra span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+@media(min-width:900px){ .barra{display:none} }
+body.tem-barra{padding-bottom:60px}
+@media(min-width:900px){ body.tem-barra{padding-bottom:0} }
+
+/* ── movimento ───────────────────────────────────────────────────── */
+.an{opacity:0; transform:translateY(18px); transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.an.ok{opacity:1; transform:none}
+.an-e{opacity:0; transform:translateX(-24px); transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.an-d{opacity:0; transform:translateX(24px); transition:opacity .6s var(--ease), transform .6s var(--ease)}
+.an-e.ok,.an-d.ok{opacity:1; transform:none}
+.an-linha{display:block; overflow:hidden}
+.an-linha > span{display:block; transform:translateY(105%); transition:transform .62s var(--ease)}
+.an-linha.ok > span{transform:none}
+.moldura::before,.moldura::after{transform:scaleX(0); transform-origin:left; transition:transform .6s var(--ease)}
+.moldura.ok::before,.moldura.ok::after{transform:scaleX(1)}
+.carimbo{opacity:0; transform:rotate(-12deg) scale(.9); transition:opacity .4s var(--ease), transform .4s var(--ease)}
+.carimbo.ok{opacity:.92; transform:rotate(-6deg) scale(1)}
+.selo-wrap{display:inline-block; transform:rotate(0deg) scale(.94); opacity:0; transition:transform .6s var(--ease), opacity .45s var(--ease)}
+.selo-wrap.ok{opacity:1; transform:rotate(var(--rot,-6deg)) scale(1)}
+.selo .traco{stroke-dasharray:var(--len,420); stroke-dashoffset:var(--len,420); transition:stroke-dashoffset .7s var(--ease)}
+.selo-wrap.ok .traco{stroke-dashoffset:0}
+.selo .letras{opacity:0; transition:opacity .5s var(--ease) .25s}
+.selo-wrap.ok .letras{opacity:1}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .an,.an-e,.an-d{transform:none; transition:opacity .3s linear}
+  .an-linha > span{transform:none; transition:none}
+  .moldura::before,.moldura::after{transform:none; transition:none}
+  .carimbo{transform:rotate(-6deg); transition:opacity .3s linear}
+  .selo-wrap{transform:rotate(var(--rot,-6deg)); transition:opacity .3s linear}
+  .selo .traco{stroke-dashoffset:0; transition:none}
+  .selo .letras{opacity:1; transition:none}
+  .btn:hover,.btn:hover .seta{transform:none}
+  .barra{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ═══════════════════════════════════════════════════════ -->
+<header class="nav" id="topo">
+  <div class="wrap nav__in">
+    <a class="nav__marca" href="#topo" aria-label="Jitshouse Lifestyle — início">
+      <img src="img/brasao-tinta.webp" alt="" width="34" height="34">
+      <span class="nav__nome"><b>JITSHOUSE</b><span>LIFESTYLE</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Seções do site">
+      <a href="#calendario">Calendário</a>
+      <a href="#casa">A Casa</a>
+      <a href="#rodrigo">Rodrigo</a>
+      <a href="#loja">Loja</a>
+    </nav>
+    <a class="btn btn--solido btn--peq nav__cta" id="cta-nav" href="#calendario">Próxima imersão</a>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
+<section class="hero" aria-labelledby="h1">
+  <picture>
+    <source srcset="img/hero-onda.webp" type="image/webp">
+    <img class="hero__foto" src="img/hero-onda.jpg" width="1300" height="1000"
+         alt="Surfista descendo a parede de uma onda na Praia do Rosa, em dia claro."
+         fetchpriority="high" decoding="async">
+  </picture>
+  <div class="hero__veu" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero__in">
+      <img class="carimbo hero__carimbo" src="img/brasao-ouro.webp" alt="" width="84" height="84" data-d="0">
+      <p class="rotulo hero__eyebrow an" data-d="1">Imersões de jiu-jitsu e autoconhecimento · desde a Praia do Rosa</p>
+      <h1 class="display" id="h1">
+        <span class="ln an-linha" data-d="2"><span>O jiu-jitsu vai</span></span>
+        <span class="ln an-linha" data-d="3"><span><em>além do tatame.</em></span></span>
+      </h1>
+      <p class="hero__sub an" data-d="4">Imersões em lugares que transformam — Praia do Rosa, Caraíva e Costa Rica.</p>
+      <a class="btn btn--ouro btn--baixo an" data-d="5" href="#calendario">Ver o calendário <span class="seta" aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MANIFESTO ═════════════════════════════════════════════════ -->
+<section class="sec manifesto" aria-labelledby="h-manifesto">
+  <div class="wrap">
+    <div class="moldura an">
+      <p class="rotulo marca-sec" id="h-manifesto">O manifesto</p>
+      <div class="manifesto__grid">
+        <div>
+          <p class="aspas an" data-d="1">Criei a Jitshouse para provar que o jiu-jitsu vai <em>além do tatame.</em></p>
+          <p class="rotulo rotulo--fino assina an" data-d="2">Rodrigo Klippel · fundador</p>
+          <p class="manifesto__fecho an" data-d="3">Viva o Jiu Jitsu. Viva o Lifestyle.</p>
+        </div>
+        <div>
+          <p class="manifesto__carimbo"><img class="carimbo" src="img/brasao-tinta.webp" alt="" width="84" height="84" loading="lazy" decoding="async"></p>
+          <p class="an" data-d="2">Uma imersão Jitshouse tem o treino no centro — mas não é só o treino. É o mar antes do primeiro round e a mata depois do último.</p>
+          <p class="an" data-d="3">É a mesa cheia, a conversa que passa da hora, a turma que chegou desconhecida e volta pra casa irmã de tatame.</p>
+          <p class="an" data-d="4">É jiu-jitsu de alto nível em lugares que transformam quem entra neles. Você sai com mais do que técnica nova.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CALENDÁRIO ════════════════════════════════════════════════ -->
+<section class="sec" id="calendario" aria-labelledby="h-cal">
+  <div class="wrap">
+    <p class="rotulo marca-sec an">O calendário</p>
+    <h2 class="display an" id="h-cal" data-d="1" style="font-size:var(--fs-h2); max-width:15ch">Calendário <em>2026–27</em></h2>
+    <p class="lede an" data-d="2" style="margin:1.4rem 0 clamp(2rem,5vw,3.5rem)">Cada destino é uma imersão inteira: treino, hospedagem, mesa e o lugar. Escolha o seu.</p>
+    <div id="lista-imersoes"></div>
+    <noscript>
+      <div class="vazio moldura">
+        <h3 class="display">O calendário completo</h3>
+        <p class="lede" style="margin:0 auto 1.6rem">Aniversário Jitshouse · 04–06 set 2026 · Praia do Rosa &nbsp;—&nbsp; On The Road Caraíva · 25–27 set 2026 · Bahia &nbsp;—&nbsp; Esquenta Costa Rica · 10–12 out 2026 · Praia do Rosa &nbsp;—&nbsp; Réveillon Costa Rica · 28 dez 2026 a 02 jan 2027 · Santa Teresa.</p>
+        <p style="margin:0"><a class="btn btn--solido" href="https://wa.me/5551999041589" target="_blank" rel="noopener">Falar com a Jitshouse <span class="seta" aria-hidden="true">&rarr;</span></a></p>
+      </div>
+    </noscript>
+  </div>
+</section>
+
+<!-- ══ A CASA ════════════════════════════════════════════════════ -->
+<section class="sec dark" id="casa" aria-labelledby="h-casa">
+  <div class="wrap">
+    <div class="casa__topo">
+      <div>
+        <p class="rotulo marca-sec an">A casa</p>
+        <h2 class="display an" id="h-casa" data-d="1" style="font-size:var(--fs-h2); max-width:14ch">Tem uma casa no meio <em>disso tudo.</em></h2>
+      </div>
+      <div>
+        <p class="lede an" data-d="2">A base fica na Praia do Rosa, em Imbituba — a hora e meia do aeroporto de Florianópolis. Tatame próprio, piscina e deck com vista pra mata, hospedagem na casa e uma mesa que junta todo mundo três vezes por dia.</p>
+        <p class="an" data-d="3" style="margin:1.2rem 0 0; font-family:'DM Serif Display',Georgia,serif; font-style:italic; font-size:clamp(1.1rem,2.1vw,1.45rem); color:var(--areia); line-height:1.35">Você treina, come e dorme onde a imersão acontece.</p>
+      </div>
+    </div>
+    <div class="casa__grade">
+      <figure class="casa__f1 an-e"><img src="img/casa-piscina.webp" alt="Vista aérea da piscina e do deck de madeira da casa, cercados pela mata." width="760" height="475" loading="lazy" decoding="async"><figcaption class="casa__legenda">Piscina e deck</figcaption></figure>
+      <figure class="casa__f2 an-d" data-d="1"><img src="img/casa-tatame.webp" alt="Open mat cheio no tatame da Jitshouse, atletas de kimono treinando." width="900" height="1125" loading="lazy" decoding="async"><figcaption class="casa__legenda">O tatame</figcaption></figure>
+      <figure class="casa__f3 an" data-d="2"><img src="img/casa-mesa.webp" alt="Mesa do café da manhã com frutas, pães e sucos servidos na casa." width="760" height="760" loading="lazy" decoding="async"><figcaption class="casa__legenda">A mesa</figcaption></figure>
+      <figure class="casa__f4 an" data-d="3"><img src="img/casa-quarto.webp" alt="Quarto da casa com cama arrumada e porta aberta para a varanda com vista para a mata." width="760" height="760" loading="lazy" decoding="async"><figcaption class="casa__legenda">Hospedagem</figcaption></figure>
+      <figure class="casa__f5 an-d" data-d="4"><img src="img/manifesto-movimento.webp" alt="Grupo em prática de movimento no deck de madeira, ao fim da tarde." width="760" height="760" loading="lazy" decoding="async"><figcaption class="casa__legenda">Movimento</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ O FUNDADOR ════════════════════════════════════════════════ -->
+<section class="sec" id="rodrigo" aria-labelledby="h-rodrigo">
+  <div class="wrap rodrigo">
+    <div class="rodrigo__foto an-e">
+      <img src="img/rodrigo.webp" alt="Retrato de Rodrigo Klippel de kimono, fundador e head coach da Jitshouse." width="900" height="1125" loading="lazy" decoding="async">
+    </div>
+    <div>
+      <p class="rotulo marca-sec an">O fundador</p>
+      <h2 class="display an" id="h-rodrigo" data-d="1" style="font-size:var(--fs-h2)">Rodrigo Klippel</h2>
+      <p class="lede an" data-d="2" style="margin:1.2rem 0">Fundador e head coach da Jitshouse. A ideia começou simples: levar o jiu-jitsu pra lugares que transformam, e ver o que acontece quando o tatame divide o dia com o mar e a mata.</p>
+      <p class="an" data-d="3">Virou marca, virou casa na Praia do Rosa, virou calendário. Rodrigo conduz cada imersão pessoalmente — no tatame e fora dele.</p>
+      <!-- [SUBSTITUIR] bio completa: graduação/faixa, linhagem, anos de tatame, títulos. -->
+      <ul class="handles an" data-d="4">
+        <li><a href="https://www.instagram.com/rodrigoklippelbjj/" target="_blank" rel="noopener">@rodrigoklippelbjj</a></li>
+        <li><a href="https://www.instagram.com/jitshousepraiadorosa/" target="_blank" rel="noopener">@jitshousepraiadorosa</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMUNIDADE / PROVA SOCIAL ═════════════════════════════════ -->
+<section class="sec comunidade" id="comunidade" aria-labelledby="h-com">
+  <div class="wrap">
+    <div class="comunidade__grid">
+      <img class="comunidade__foto an-e" src="img/comunidade.webp" alt="Turma reunida na frente do painel da JitsHouse ao fim de um treino." width="760" height="522" loading="lazy" decoding="async">
+      <div>
+        <p class="rotulo marca-sec an">A turma</p>
+        <h2 class="display an" id="h-com" data-d="1" style="font-size:clamp(1.6rem,3.4vw,2.4rem); max-width:16ch">Ninguém volta da mesma forma <em>que chegou.</em></h2>
+        <p class="lede an" data-d="2" style="margin-top:1.1rem">Faixas diferentes, cidades diferentes, idades diferentes. O tatame nivela, e a casa faz o resto.</p>
+        <ul class="numeros an" data-d="3">
+          <li><b>11,5&nbsp;mil</b><span class="rotulo rotulo--fino">no @jitshouselifestyle</span></li>
+          <li><b>4</b><span class="rotulo rotulo--fino">imersões em 2026–27</span></li>
+          <li><b>3</b><span class="rotulo rotulo--fino">destinos · BR e Costa Rica</span></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Depoimentos: renderizados só quando o array DEPOIMENTOS tiver
+         conteúdo real e autorizado. Nada é fabricado aqui. -->
+    <div class="depo" id="lista-depoimentos"></div>
+  </div>
+</section>
+
+<!-- ══ A LOJA ════════════════════════════════════════════════════ -->
+<section class="sec" id="loja" aria-labelledby="h-loja" style="padding-block:clamp(3rem,7vw,5rem)">
+  <div class="wrap">
+    <div class="moldura loja an">
+      <div>
+        <p class="rotulo marca-sec">A loja</p>
+        <h2 class="display" id="h-loja">A Jitshouse também <em>se veste.</em></h2>
+      </div>
+      <a class="btn btn--linha" href="https://loja.infinitepay.io/jitshouse_lifestyle" target="_blank" rel="noopener">Visitar a loja <span class="seta" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ═════════════════════════════════════════════════ -->
+<section class="sec dark--fundo final" aria-labelledby="h-final">
+  <div class="wrap">
+    <img class="carimbo" src="img/brasao-ouro.webp" alt="" width="84" height="84" loading="lazy" decoding="async">
+    <h2 class="display an" id="h-final" data-d="1">O tatame é só o começo. <em>Venha viver mais.</em></h2>
+    <a class="btn btn--ouro an" data-d="2" id="cta-final" href="https://wa.me/5551999041589" target="_blank" rel="noopener">Falar com a Jitshouse</a>
+    <p class="rotulo rotulo--fino final__nota an" data-d="3">Praia do Rosa · Imbituba — Santa Catarina</p>
+  </div>
+</section>
+
+<!-- ══ RODAPÉ ════════════════════════════════════════════════════ -->
+<footer class="dark--fundo rodape">
+  <div class="wrap">
+    <div class="rodape__grid">
+      <div>
+        <img src="img/brasao-ouro.webp" alt="Brasão da Jitshouse Lifestyle" width="72" height="72" loading="lazy" style="width:72px;height:72px">
+      </div>
+      <div>
+        <p class="rotulo rodape__tit">Onde nos achar</p>
+        <ul>
+          <li><a href="https://www.instagram.com/jitshouselifestyle/" target="_blank" rel="noopener">@jitshouselifestyle</a></li>
+          <li><a href="https://www.instagram.com/rodrigoklippelbjj/" target="_blank" rel="noopener">@rodrigoklippelbjj</a></li>
+          <li><a href="https://www.instagram.com/jitshousepraiadorosa/" target="_blank" rel="noopener">@jitshousepraiadorosa</a></li>
+          <li><a href="https://loja.infinitepay.io/jitshouse_lifestyle" target="_blank" rel="noopener">Loja oficial</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rotulo rodape__tit">Contato</p>
+        <ul>
+          <li><a href="https://wa.me/5551999041589" target="_blank" rel="noopener">WhatsApp · 51 99904-1589</a></li>
+          <li><a href="mailto:jitshousepraiadorosa@gmail.com">jitshousepraiadorosa@gmail.com</a></li>
+          <li><a href="https://jitshouse.com">jitshouse.com</a></li>
+          <li>Praia do Rosa · Imbituba — SC</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape__fim">
+      <p class="rotulo rotulo--fino" style="margin:0">© <span id="ano">2026</span> Jitshouse Lifestyle · Viva o Jiu Jitsu. Viva o Lifestyle.</p>
+      <a class="rotulo rotulo--fino credito" href="#topo">site por Baruc Amare</a>
+    </div>
+  </div>
+</footer>
+
+<a class="barra" id="barra" href="#calendario"><span>Próxima imersão</span></a>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   ★ FONTE ÚNICA DE VERDADE DO CALENDÁRIO
+   Adicionar imersão = colar um objeto novo aqui. O resto da página
+   (cards, badge PRÓXIMA, contagem, barra mobile, CTA do menu e o
+   Schema.org) é gerado a partir daqui.
+
+   Campos:
+     id      · âncora da faixa (#im-<id>)
+     nome    · título da imersão
+     inicio  · 'AAAA-MM-DD'
+     fim     · 'AAAA-MM-DD'  → passou dessa data, a imersão some
+     datas   · como as datas aparecem na tela
+     local   · linha de local
+     selo    · { l1, l2, icone }  icone: onda | palmeira | sol | triangulo
+     copy    · 2 linhas (transcritas dos cards oficiais)
+     tag     · selo de parceria (opcional)
+     foto    · caminho sem extensão (webp + jpg) — ou null
+     placa   · imagem de fundo da placa quando não há foto própria
+     alt     · texto alternativo da foto
+     link    · URL da landing da imersão (tem prioridade)
+     wa      · true → CTA vai pro WhatsApp com mensagem da imersão
+     cta     · texto do botão
+   ══════════════════════════════════════════════════════════════════ */
+var WHATS = '5551999041589';
+
+var IMERSOES = [
+  {
+    id:'aniversario',
+    nome:'Aniversário Jitshouse',
+    inicio:'2026-09-04', fim:'2026-09-06',
+    datas:'04 · 05 · 06 set 2026',
+    local:'Praia do Rosa · Imbituba — Santa Catarina',
+    selo:{ l1:'PRAIA DO ROSA', l2:'SANTA CATARINA', icone:'onda' },
+    copy:'Três dias de muito jiu jitsu na casa-mãe da Jitshouse. Com Rodrigo Klippel e seis convidados confirmados, no fim de semana que celebra o aniversário da casa.',
+    tag:null,
+    foto:'img/dest-rosa', alt:'Vista aérea da enseada da Praia do Rosa, mar turquesa e mata.',
+    link:'https://jitshouse-aniversario.vercel.app/',
+    cta:'Ver a imersão'
+  },
+  {
+    id:'caraiva',
+    nome:'Jitshouse On The Road — Caraíva',
+    inicio:'2026-09-25', fim:'2026-09-27',
+    datas:'25 a 27 set 2026',
+    local:'Caraíva — Bahia',
+    selo:{ l1:'CARAÍVA', l2:'BAHIA', icone:'palmeira' },
+    copy:'Três dias que celebram o estilo de vida do jiu-jitsu em um dos lugares mais preservados do Brasil. Treinos exclusivos, hospedagem e experiência em cenário paradisíaco.',
+    tag:'Treine. Explore. Evolua.',
+    foto:'img/dest-caraiva', alt:'Vista aérea de Caraíva, onde o rio encontra o mar, com a vila entre coqueiros.',
+    /* [SUBSTITUIR] quando a landing de Caraíva existir: link:'...' */
+    wa:true,
+    cta:'Quero saber mais'
+  },
+  {
+    id:'esquenta',
+    nome:'Esquenta Costa Rica',
+    inicio:'2026-10-10', fim:'2026-10-12',
+    datas:'10 a 12 out 2026',
+    local:'Praia do Rosa · Imbituba — Santa Catarina',
+    selo:{ l1:'PRAIA DO ROSA', l2:'O ESQUENTA', icone:'sol' },
+    copy:'O esquenta oficial para o Réveillon na Costa Rica. Um fim de semana na Praia do Rosa para aquecer o que vem pela virada do ano.',
+    tag:'Em parceria com Satya on the Road',
+    foto:'img/dest-esquenta', alt:'Pôr do sol sobre o mar na Praia do Rosa, visto por entre a vegetação da restinga.',
+    wa:true,
+    cta:'Quero saber mais'
+  },
+  {
+    id:'reveillon',
+    nome:'Réveillon Costa Rica',
+    inicio:'2026-12-28', fim:'2027-01-02',
+    datas:'28 dez 2026 a 02 jan 2027',
+    local:'Santa Teresa — Costa Rica',
+    selo:{ l1:'SANTA TERESA', l2:'COSTA RICA', icone:'triangulo' },
+    copy:'Luiza Lisboa, Déia Ribeiro e Rodrigo Klippel unem suas experiências numa jornada de movimento, conexão e transformação. Yoga, surf e jiu-jitsu integrados em um dos cenários mais incríveis da América Central.',
+    tag:'Satya on the Road & Jitshouse Lifestyle',
+    /* [SUBSTITUIR] foto própria da Costa Rica. Até lá, a placa usa a
+       textura do material oficial do evento + o selo do destino. */
+    foto:null, placa:'img/dest-costarica.webp',
+    wa:true,
+    cta:'Quero saber mais'
+  }
+];
+
+/* Depoimentos reais e autorizados. Enquanto estiver vazio, o bloco
+   não aparece — nada de prova social fabricada.
+   Formato: { texto:'...', autor:'Nome', de:'Cidade · imersão' }   */
+var DEPOIMENTOS = [
+  /* [SUBSTITUIR] ex.: { texto:'...', autor:'...', de:'...' } */
+];
+
+/* ── data de hoje no fuso da casa ─────────────────────────────────── */
+function hojeSP(){
+  try{
+    return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  }catch(e){
+    var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+}
+function dias(de,ate){
+  var a=de.split('-'), b=ate.split('-');
+  return Math.round((Date.UTC(+b[0],b[1]-1,+b[2]) - Date.UTC(+a[0],a[1]-1,+a[2]))/86400000);
+}
+var HOJE = hojeSP();
+
+/* ── selos postais (a assinatura desta página) ────────────────────── */
+var ICONES = {
+  onda:      '<path class="icone traco" d="M46 62c3.6-3.4 7.2-3.4 10.8 0s7.2 3.4 10.8 0 7.2-3.4 10.8 0M46 52c3.6-3.4 7.2-3.4 10.8 0s7.2 3.4 10.8 0 7.2-3.4 10.8 0" stroke-width="1.6"/>',
+  palmeira:  '<path class="icone traco" d="M60 52v18M60 52c-6-5-13-5-17 1 6-2 11-1 14 2M60 52c6-5 13-5 17 1-6-2-11-1-14 2M60 52c-2-7 1-12 7-14-3 5-3 9-2 12M60 52c2-7-1-12-7-14 3 5 3 9 2 12" stroke-width="1.5"/><path class="icone traco" d="M50 72h20" stroke-width="1.5"/>',
+  sol:       '<circle class="icone traco" cx="60" cy="59" r="7.5" stroke-width="1.6"/><path class="icone traco" d="M60 45v-4M60 77v-4M74 59h4M42 59h4M70 49l3-3M47 72l3-3M70 69l3 3M47 46l3 3" stroke-width="1.5"/>',
+  triangulo: '<path class="icone traco" d="M60 47 74 70H46Z" stroke-width="1.6"/><circle class="icone traco" cx="60" cy="63" r="4" stroke-width="1.5"/>'
+};
+function selo(s,i,cls){
+  var ic = ICONES[s.icone] || ICONES.triangulo;
+  return '<svg class="selo '+(cls||'')+'" viewBox="0 0 120 120" role="img" aria-label="Selo postal: '+s.l1+', '+s.l2+'">'
+    + '<defs>'
+    + '<path id="st'+i+'" d="M18,60 A42,42 0 0,1 102,60"/>'
+    + '<path id="sb'+i+'" d="M11,60 A49,49 0 0,0 109,60"/>'
+    + '</defs>'
+    + '<circle class="anel traco" cx="60" cy="60" r="56" stroke-width="1.1"/>'
+    + '<circle class="anel traco" cx="60" cy="60" r="52" stroke-width="0.7"/>'
+    + '<circle class="anel traco" cx="60" cy="60" r="34" stroke-width="0.7" stroke-dasharray="2 3.4"/>'
+    + ic
+    + '<g class="letras">'
+    + '<text><textPath href="#st'+i+'" startOffset="50%" text-anchor="middle">'+s.l1+'</textPath></text>'
+    + '<text><textPath href="#sb'+i+'" startOffset="50%" text-anchor="middle">'+s.l2+'</textPath></text>'
+    + '</g></svg>';
+}
+
+/* ── render do calendário ─────────────────────────────────────────── */
+var ativas = IMERSOES.filter(function(im){ return im.fim >= HOJE; })
+                     .sort(function(a,b){ return a.inicio < b.inicio ? -1 : 1; });
+
+function linkDe(im){
+  if(im.link) return im.link;
+  var msg = 'Olá! Quero informações sobre a imersão ' + im.nome + ' (' + im.datas + ')';
+  return 'https://wa.me/' + WHATS + '?text=' + encodeURIComponent(msg);
+}
+
+function faixa(im,i){
+  var inv = i % 2 === 1;
+  var prox = i === 0;
+  var falta = dias(HOJE, im.inicio);
+  var rot = [-8, 6, -5, 4, -7, 5][i % 6];
+
+  var topo = '';
+  if(prox){
+    topo += '<span class="badge">Próxima</span>';
+    if(falta > 1)       topo += '<span class="contagem">faltam ' + falta + ' dias</span>';
+    else if(falta === 1)topo += '<span class="contagem">é amanhã</span>';
+    else if(falta === 0)topo += '<span class="contagem">começa hoje</span>';
+    else                topo += '<span class="contagem">acontecendo agora</span>';
+  }
+
+  var midia;
+  if(im.foto){
+    midia = '<picture>'
+      + '<source srcset="' + im.foto + '.webp" type="image/webp">'
+      + '<img class="faixa__foto" src="' + im.foto + '.jpg" width="900" height="600" loading="lazy" decoding="async" alt="' + im.alt + '">'
+      + '</picture>';
+  }else{
+    midia = '<div class="faixa__placa">'
+      + (im.placa ? '<img src="' + im.placa + '" width="900" height="600" loading="lazy" decoding="async" alt="">' : '')
+      + '<span class="selo-wrap" style="--rot:0deg">' + selo(im.selo, 'p' + i) + '</span>'
+      + '</div>';
+  }
+
+  return '<article class="faixa' + (inv ? ' faixa--inv' : '') + '" id="im-' + im.id + '">'
+    + '<div class="faixa__midia ' + (inv ? 'an-d' : 'an-e') + '">' + midia
+    + (im.foto ? '<span class="faixa__selo selo-wrap" style="--rot:' + rot + 'deg">' + selo(im.selo, i) + '</span>' : '')
+    + '</div>'
+    + '<div class="faixa__txt ' + (inv ? 'an-e' : 'an-d') + '" data-d="1">'
+    + (topo ? '<div class="faixa__topo">' + topo + '</div>' : '')
+    + '<h3 class="display faixa__nome">' + im.nome + '</h3>'
+    + '<p class="faixa__datas">' + im.datas + '</p>'
+    + '<p class="rotulo rotulo--fino faixa__local">' + im.local + '</p>'
+    + '<p class="faixa__copy">' + im.copy + '</p>'
+    + (im.tag ? '<p class="faixa__tag">' + im.tag + '</p>' : '')
+    + '<p style="margin:0"><a class="btn ' + (prox ? 'btn--solido' : 'btn--linha') + '" href="' + linkDe(im) + '"'
+    + (im.link ? ' target="_blank" rel="noopener"' : ' target="_blank" rel="noopener"') + '>'
+    + im.cta + ' <span class="seta" aria-hidden="true">→</span></a></p>'
+    + '</div></article>';
+}
+
+var lista = document.getElementById('lista-imersoes');
+if(ativas.length){
+  lista.innerHTML = ativas.map(faixa).join('');
+}else{
+  lista.innerHTML = '<div class="vazio moldura an">'
+    + '<h3 class="display">Novas imersões em breve.</h3>'
+    + '<p class="lede" style="margin:0 auto 1.8rem">O calendário do próximo ciclo está sendo fechado. Entre na lista de espera e você fica sabendo antes.</p>'
+    + '<a class="btn btn--solido" href="https://wa.me/' + WHATS + '?text='
+    + encodeURIComponent('Olá! Quero entrar na lista de espera das próximas imersões da Jitshouse.')
+    + '" target="_blank" rel="noopener">Entrar na lista de espera <span class="seta" aria-hidden="true">→</span></a></div>';
+}
+
+/* ── CTAs dinâmicos: menu + barra fixa ───────────────────────────── */
+var barra = document.getElementById('barra');
+var ctaNav = document.getElementById('cta-nav');
+if(ativas.length){
+  var p = ativas[0];
+  barra.setAttribute('href', '#im-' + p.id);
+  barra.innerHTML = '<span>Próxima imersão — ' + p.nome + '</span>';
+  ctaNav.setAttribute('href', '#im-' + p.id);
+}else{
+  var espera = 'https://wa.me/' + WHATS + '?text=' + encodeURIComponent('Olá! Quero entrar na lista de espera das próximas imersões da Jitshouse.');
+  barra.setAttribute('href', espera);
+  barra.setAttribute('target', '_blank'); barra.setAttribute('rel', 'noopener');
+  barra.innerHTML = '<span>Entrar na lista de espera</span>';
+  ctaNav.setAttribute('href', espera);
+  ctaNav.setAttribute('target', '_blank'); ctaNav.setAttribute('rel', 'noopener');
+  ctaNav.textContent = 'Lista de espera';
+}
+
+/* ── depoimentos (só se houver conteúdo real) ─────────────────────── */
+var ld = document.getElementById('lista-depoimentos');
+if(DEPOIMENTOS.length){
+  ld.innerHTML = DEPOIMENTOS.map(function(d,i){
+    return '<figure class="an" data-d="' + i + '"><blockquote>' + d.texto + '</blockquote>'
+      + '<figcaption>' + d.autor + (d.de ? ' · ' + d.de : '') + '</figcaption></figure>';
+  }).join('');
+}else{
+  ld.remove();
+}
+
+/* ── Schema.org: um Event por imersão ativa, do mesmo array ───────── */
+(function(){
+  if(!ativas.length) return;
+  var base = 'https://jitshouse.com/';
+  var eventos = ativas.map(function(im){
+    var e = {
+      '@context':'https://schema.org','@type':'Event',
+      name: im.nome,
+      startDate: im.inicio, endDate: im.fim,
+      eventStatus:'https://schema.org/EventScheduled',
+      eventAttendanceMode:'https://schema.org/OfflineEventAttendanceMode',
+      description: im.copy,
+      url: im.link || base + '#im-' + im.id,
+      organizer:{'@type':'Organization','name':'Jitshouse Lifestyle','url':base},
+      performer:{'@type':'Person','name':'Rodrigo Klippel'},
+      location:{'@type':'Place','name':im.selo.l1,
+        address:{'@type':'PostalAddress','addressLocality':im.selo.l1,
+          addressCountry: im.selo.l2 === 'COSTA RICA' ? 'CR' : 'BR'}}
+    };
+    if(im.foto) e.image = base + im.foto + '.jpg';
+    return e;
+  });
+  var s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.textContent = JSON.stringify(eventos);
+  document.head.appendChild(s);
+})();
+
+/* ── ano automático ──────────────────────────────────────────────── */
+document.getElementById('ano').textContent = new Date().getFullYear();
+
+/* ── movimento ───────────────────────────────────────────────────── */
+(function(){
+  var alvos = document.querySelectorAll('.an,.an-e,.an-d,.an-linha,.moldura,.carimbo,.selo-wrap');
+  function acender(el){
+    var d = parseInt(el.getAttribute('data-d') || '0', 10);
+    setTimeout(function(){ el.classList.add('ok'); }, d * 130);
+  }
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(reduz || !('IntersectionObserver' in window)){
+    alvos.forEach(function(el){ el.classList.add('ok'); });
+  }else{
+    var io = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting){ acender(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold:0.05, rootMargin:'0px 0px 15% 0px' });
+    alvos.forEach(function(el){ io.observe(el); });
+  }
+
+  /* rede de segurança: se o observer falhar, tudo aparece em 3s */
+  setTimeout(function(){
+    document.querySelectorAll('.an,.an-e,.an-d,.an-linha,.moldura,.carimbo,.selo-wrap').forEach(function(el){
+      el.classList.add('ok');
+    });
+  }, 3000);
+
+  /* hero entra sozinho, sem esperar scroll */
+  requestAnimationFrame(function(){
+    document.querySelectorAll('.hero .an,.hero .an-linha,.hero .carimbo').forEach(acender);
+  });
+})();
+
+/* ── nav + barra fixa no scroll ──────────────────────────────────── */
+(function(){
+  var nav = document.querySelector('.nav');
+  var hero = document.querySelector('.hero');
+  document.body.classList.add('tem-barra');
+  function passo(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    nav.classList.toggle('rolou', y > 8);
+    barra.classList.toggle('ver', y > hero.offsetHeight * 0.75);
+  }
+  passo();
+  window.addEventListener('scroll', passo, { passive:true });
+})();
+</script>
+</body>
+</html>
