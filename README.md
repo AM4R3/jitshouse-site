@@ -1,8 +1,30 @@
 # Jitshouse Lifestyle — site institucional
 
-A casa digital da marca: manifesto, calendário de imersões, a casa na Praia do
-Rosa, o fundador e a loja. Arquivo único (`index.html`), HTML/CSS/JS puro, sem
-frameworks e sem build.
+A casa digital da marca: manifesto, pilares, o que a Jitshouse faz, calendário
+de imersões, a casa na Praia do Rosa, o fundador e a loja — mais uma página
+completa por imersão. HTML/CSS/JS puro, sem frameworks e sem build.
+
+## Arquivos
+
+| Arquivo | O que é |
+|---|---|
+| `index.html` | A home. Self-contained (CSS e JS inline) |
+| `caraiva.html` | Jitshouse On The Road — Caraíva · 25–27 set 2026 |
+| `esquenta.html` | Esquenta Réveillon Costa Rica · 10–12 out 2026 |
+| `reveillon.html` | Costa Rica New Year Experience · 28/12 a 02/01 |
+| `assets/imersao.css` | Design system compartilhado pelas 3 páginas de imersão |
+| `assets/imersao.js` | Movimento, nav e barra fixa das páginas de imersão |
+
+O **Aniversário** não tem página aqui de propósito: a landing de venda dele já
+existe em
+[jitshouse-aniversario.vercel.app](https://jitshouse-aniversario.vercel.app/) e
+é mais profunda que uma página de detalhe. Duplicar o mesmo evento em duas URLs
+dividiria o SEO e confundiria quem chega. O calendário aponta pra lá.
+
+> ⚠️ Os tokens de cor e a tipografia estão **duplicados** entre `index.html`
+> (inline) e `assets/imersao.css`. Foi decisão consciente: a home já estava no
+> ar e funcionando, e refatorá-la pra puxar CSS externo traria risco de
+> regressão sem ganho pro usuário. **Ao mexer na paleta, mexa nos dois.**
 
 **Não confundir** com as landings de venda de cada imersão — por exemplo
 [jitshouse-aniversario.vercel.app](https://jitshouse-aniversario.vercel.app/),
@@ -101,6 +123,31 @@ Também verificado: 390 / 768 / 1200 / 1600 px sem scroll horizontal ·
 
 ---
 
+## De onde veio o conteúdo
+
+Tudo que está escrito no site foi extraído do **jitshouse.com** (a API REST do
+WordPress: `/wp-json/wp/v2/pages` e `/media`) e dos cards oficiais publicados.
+Nenhum texto foi inventado.
+
+| Origem | O que virou |
+|---|---|
+| Página `/home` | Os pilares (Expectativa · Memória · Segurança), o texto dos 6 anos, a seção "O que fazemos" e os Diferenciais (+6 anos, +100 eventos, SC/SP/BA) |
+| Página `/imersao-caraiva` | Página de Caraíva: incluso, atividades, passeios (Rio Caraíva, Ponta do Corumbal, Reserva Porto do Boi), vida noturna, Pousada Kamaiurá |
+| Página `/esquenta-costa-rica` | Página do Esquenta: incluso, as 7 vivências e a grade hora a hora dos 3 dias (inclusive Restaurante Lola e Aloha) |
+| Página `/costa-rica-reveillon` | Página do Réveillon: incluso, Believe Surf Hotel e a programação dos 6 dias |
+| Media library | 99 imagens revisadas em contact sheet; as melhores de cada destino entraram tratadas |
+
+**Os 6 "posts" do site antigo foram descartados**: são lorem-ipsum do tema
+(títulos genéricos em inglês, os 6 com texto idêntico de 1963 caracteres).
+
+### Divergência encontrada
+
+A página `/aniversario-jitshouse` anuncia **Ticket Silver R$ 540,00**, mas o
+checkout na loja está **R$ 490,00**. Como este site não exibe preço, nada quebra
+— mas vale o Rodrigo alinhar os dois.
+
+---
+
 ## Checkouts na loja InfinitePay
 
 Titular **Rodrigo de Mello Klippel**. As quatro imersões já têm produto
@@ -173,8 +220,11 @@ O ouro original (`#C5B178`) **não** passa sobre papel (1.6:1); por isso existe 
 - [ ] Depoimentos reais autorizados → array `DEPOIMENTOS` (hoje vazio; o bloco só
       aparece quando houver conteúdo real — nada de prova social fabricada)
 - [ ] Foto própria da Costa Rica (hoje a placa usa a textura do material oficial)
-- [ ] Landings de Caraíva / Esquenta / Réveillon → preencher `link:` (o checkout
-      já está ligado; a landing entra como link secundário "Ver a imersão")
+- [ ] Grade hora a hora de Caraíva — a página oficial lista as atividades sem
+      horários fechados por dia, diferente das outras três
+- [ ] Confirmar se o "APENAS 10 VAGAS" do card do Esquenta vale para o Esquenta
+      ou para o Réveillon (não publiquei: escassez desatualizada engana)
+- [ ] Alinhar o preço do Aniversário entre o site antigo (R$ 540) e a loja (R$ 490)
 - [ ] Confirmar formas de pagamento e liberar a micro-copy completa
 - [ ] Ao publicar no domínio final, trocar as URLs `jitshouse.com` do `<head>`
       (canonical, og:url, og:image) e do JSON-LD

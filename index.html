@@ -239,6 +239,7 @@ body::before{
     linear-gradient(100deg, rgba(4,33,30,.92) 0%, rgba(4,33,30,.76) 28%, rgba(4,33,30,.34) 56%, rgba(4,33,30,0) 80%),
     linear-gradient(to top, rgba(4,33,30,.5), rgba(4,33,30,0) 45%);
 }
+.hero > .wrap{width:100%}   /* sem isto o wrap vira flex-item, encolhe e centraliza */
 .hero__in{max-width:min(100%,790px); color:var(--papel); text-align:left}
 .hero__eyebrow{color:var(--ouro); margin-bottom:1.5rem; max-width:34ch}
 .hero h1{font-size:var(--fs-hero); margin:0 0 1.6rem; color:var(--papel)}
@@ -341,6 +342,29 @@ body::before{
 }
 .vazio{text-align:center; padding-block:clamp(2rem,6vw,4rem)}
 .vazio h3{font-size:var(--fs-h3); margin:0 0 1rem}
+
+/* ── pilares · o que fazemos · números (conteúdo real da marca) ──── */
+.pilares{display:grid; gap:clamp(1.2rem,3vw,2rem); grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); margin:clamp(2rem,4vw,3rem) 0 0; padding:0; list-style:none}
+.pilar{border-top:1px solid rgba(0,64,48,.28); padding-top:1.1rem}
+.pilar b{
+  display:block; font-family:"DM Serif Display",Georgia,serif; font-weight:400;
+  font-size:clamp(1.3rem,2.5vw,1.7rem); color:var(--verde-rosa); line-height:1.1; margin-bottom:.5rem;
+}
+.pilar span{color:var(--mute-papel); font-size:.98rem; line-height:1.6}
+
+.fazemos{display:grid; gap:clamp(1.5rem,3.5vw,2.5rem); grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin:clamp(2rem,4vw,3rem) 0 0; padding:0; list-style:none}
+.faz{position:relative; padding:clamp(1.4rem,3vw,2rem); background:var(--papel-alto); border:1px solid rgba(0,64,48,.18); border-radius:1px}
+.faz b{
+  display:block; font-family:"DM Serif Display",Georgia,serif; font-weight:400;
+  font-size:var(--fs-h3); color:var(--verde-rosa); line-height:1.12; margin:0 0 .7rem;
+}
+.faz span{color:var(--mute-papel); line-height:1.65}
+.faz::before{
+  content:""; position:absolute; top:clamp(1.4rem,3vw,2rem); right:clamp(1.4rem,3vw,2rem);
+  width:15px; height:15px; background:var(--ouro-dia); opacity:.6;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3 22 20H2Z' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3 22 20H2Z' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;
+}
 
 /* ── a casa (primeira faixa escura) ──────────────────────────────── */
 .casa__topo{display:grid; gap:clamp(1.5rem,4vw,3.5rem); margin-bottom:clamp(2.5rem,6vw,4rem)}
@@ -546,6 +570,42 @@ body.tem-barra{padding-bottom:60px}
   </div>
 </section>
 
+<!-- ══ OS PILARES ════════════════════════════════════════════════ -->
+<section class="sec" aria-labelledby="h-pilares" style="padding-top:0; padding-bottom:clamp(2.5rem,6vw,4.5rem)">
+  <div class="wrap">
+    <p class="rotulo marca-sec an">Onde a performance encontra o propósito</p>
+    <h2 class="display an" id="h-pilares" data-d="1" style="font-size:var(--fs-h2); max-width:25ch">Há seis anos a Jitshouse não produz eventos. <em>Cria experiências.</em></h2>
+    <p class="lede an" data-d="2" style="margin-top:1.3rem">Nascemos da intersecção entre a adrenalina do Jiu-Jitsu, a liberdade do Surf e o equilíbrio da Natureza. Cada experiência é desenhada para conduzir uma jornada completa: do primeiro contato, que desperta a expectativa, ao pós-experiência, onde a memória se consolida e passa a integrar a trajetória de cada participante.</p>
+    <ul class="pilares an" data-d="3">
+      <li class="pilar"><b>Expectativa</b><span>O que se acende antes de chegar: o convite, a preparação, a vontade de ir.</span></li>
+      <li class="pilar"><b>Memória</b><span>O que fica depois. A experiência se consolida e passa a integrar a sua trajetória.</span></li>
+      <li class="pilar"><b>Segurança</b><span>A disciplina que se revela na constância da prática e no respeito aos processos.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══ O QUE FAZEMOS ═════════════════════════════════════════════ -->
+<section class="sec alto" id="fazemos" aria-labelledby="h-fazemos">
+  <div class="wrap">
+    <p class="rotulo marca-sec an">O que fazemos</p>
+    <h2 class="display an" id="h-fazemos" data-d="1" style="font-size:var(--fs-h2); max-width:16ch">Três frentes, <em>um mesmo lifestyle.</em></h2>
+    <ul class="fazemos an" data-d="2">
+      <li class="faz">
+        <b>Eventos esportivos high-end</b>
+        <span>Competições e encontros de Jiu-Jitsu com logística impecável e o lifestyle de praia como pano de fundo.</span>
+      </li>
+      <li class="faz">
+        <b>Imersões de desenvolvimento humano</b>
+        <span>Workshops e retiros focados em autoconhecimento, usando o esporte como ferramenta de evolução mental e emocional.</span>
+      </li>
+      <li class="faz">
+        <b>Esportes de aventura</b>
+        <span>Conexão total com o meio ambiente através do surf e outras modalidades ao ar livre.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
 <!-- ══ CALENDÁRIO ════════════════════════════════════════════════ -->
 <section class="sec" id="calendario" aria-labelledby="h-cal">
   <div class="wrap">
@@ -612,14 +672,15 @@ body.tem-barra{padding-bottom:60px}
     <div class="comunidade__grid">
       <img class="comunidade__foto an-e" src="img/comunidade.webp" alt="Turma reunida na frente do painel da JitsHouse ao fim de um treino." width="760" height="522" loading="lazy" decoding="async">
       <div>
-        <p class="rotulo marca-sec an">A turma</p>
-        <h2 class="display an" id="h-com" data-d="1" style="font-size:clamp(1.6rem,3.4vw,2.4rem); max-width:16ch">Ninguém volta da mesma forma <em>que chegou.</em></h2>
-        <p class="lede an" data-d="2" style="margin-top:1.1rem">Faixas diferentes, cidades diferentes, idades diferentes. O tatame nivela, e a casa faz o resto.</p>
+        <p class="rotulo marca-sec an">Diferenciais Jitshouse</p>
+        <h2 class="display an" id="h-com" data-d="1" style="font-size:clamp(1.6rem,3.4vw,2.4rem); max-width:17ch">Não entregamos apenas técnicas. <em>Entregamos uma comunidade.</em></h2>
+        <p class="lede an" data-d="2" style="margin-top:1.1rem">Nosso foco é o Lifestyle: o respeito pelo mar, a disciplina do tatame e a busca constante pela melhor versão de cada indivíduo.</p>
         <ul class="numeros an" data-d="3">
-          <li><b>11,5&nbsp;mil</b><span class="rotulo rotulo--fino">no @jitshouselifestyle</span></li>
-          <li><b>4</b><span class="rotulo rotulo--fino">imersões em 2026–27</span></li>
-          <li><b>3</b><span class="rotulo rotulo--fino">destinos · BR e Costa Rica</span></li>
+          <li><b>+6 anos</b><span class="rotulo rotulo--fino">de estrada</span></li>
+          <li><b>+100</b><span class="rotulo rotulo--fino">eventos realizados</span></li>
+          <li><b>3</b><span class="rotulo rotulo--fino">estados · SC, SP e BA</span></li>
         </ul>
+        <p class="an" data-d="4" style="margin-top:1.6rem; color:var(--mute-papel)">Uma trajetória sólida, guiada por disciplina, consistência e propósito — com milhares de atletas e entusiastas impactados pela metodologia de imersão da Jitshouse.</p>
       </div>
     </div>
     <!-- Depoimentos: renderizados só quando o array DEPOIMENTOS tiver
@@ -758,7 +819,7 @@ var IMERSOES = [
     copy:'Três dias que celebram o estilo de vida do jiu-jitsu em um dos lugares mais preservados do Brasil. Treinos exclusivos, hospedagem e experiência em cenário paradisíaco.',
     tag:'Treine. Explore. Evolua.',
     foto:'img/dest-caraiva', alt:'Vista aérea de Caraíva, onde o rio encontra o mar, com a vila entre coqueiros.',
-    /* [SUBSTITUIR] quando a landing de Caraíva existir: link:'...' */
+    link:'caraiva.html',
     checkout: LOJA + '/wwk9630-jitshouse-caraiva'
   },
   {
@@ -771,6 +832,7 @@ var IMERSOES = [
     copy:'O esquenta oficial para o Réveillon na Costa Rica. Um fim de semana na Praia do Rosa para aquecer o que vem pela virada do ano.',
     tag:'Em parceria com Satya on the Road',
     foto:'img/dest-esquenta', alt:'Pôr do sol sobre o mar na Praia do Rosa, visto por entre a vegetação da restinga.',
+    link:'esquenta.html',
     /* produto "Praia do Rosa Preview Costa Rica" na loja — é este Esquenta:
        a descrição do produto diz "10 a 12 de outubro" */
     checkout: LOJA + '/hlm5888-praia-do-rosa-preview-costa-rica'
@@ -784,9 +846,8 @@ var IMERSOES = [
     selo:{ l1:'SANTA TERESA', l2:'COSTA RICA', icone:'triangulo' },
     copy:'Luiza Lisboa, Déia Ribeiro e Rodrigo Klippel unem suas experiências numa jornada de movimento, conexão e transformação. Yoga, surf e jiu-jitsu integrados em um dos cenários mais incríveis da América Central.',
     tag:'Satya on the Road & Jitshouse Lifestyle',
-    /* [SUBSTITUIR] foto própria da Costa Rica. Até lá, a placa usa a
-       textura do material oficial do evento + o selo do destino. */
-    foto:null, placa:'img/dest-costarica.webp',
+    foto:'img/dest-costarica', alt:'Piscina do Believe Surf Hotel cercada pela mata, em Santa Teresa, Costa Rica.',
+    link:'reveillon.html',
     checkout: LOJA + '/ooe9249-jitshouse-costa-rica'
   }
 ];
@@ -884,7 +945,11 @@ function compra(im, prox){
 
   /* secundários: a página de venda (quando existe) e as dúvidas */
   var sec = '';
-  if(im.link)   sec += '<li><a href="' + im.link + '" target="_blank" rel="noopener">Ver a imersão →</a></li>';
+  if(im.link){
+    /* página desta imersão: interna abre na mesma aba, externa em outra */
+    var fora = /^https?:/i.test(im.link);
+    sec += '<li><a href="' + im.link + '"' + (fora ? ' target="_blank" rel="noopener"' : '') + '>Ver a imersão →</a></li>';
+  }
   if(d.checkout)sec += '<li><a href="' + zapDe(im, true) + '" target="_blank" rel="noopener">Dúvidas? Fala com a gente</a></li>';
   if(sec) out += '<ul class="faixa__sec">' + sec + '</ul>';
 
