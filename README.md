@@ -164,7 +164,10 @@ imersão correspondente:
   publicado em jitshouse.com. Segue como canal de dúvidas em todas as faixas
 - **Loja** https://loja.infinitepay.io/jitshouse_lifestyle
 - **E-mail** jitshousepraiadorosa@gmail.com
-- **Instagram** @jitshouselifestyle · @rodrigoklippelbjj · @jitshousepraiadorosa
+- **Instagram** @jitshouselifestyle · @rodrigoklippelbjj
+  (26/08/2026: @jitshousepraiadorosa saiu de todos os rodapés — decisão de
+  posicionamento. É a conta da academia física, de alcance menor e redundante
+  com as outras duas. O e-mail com o mesmo nome continua sendo o oficial.)
 - **Copys das imersões** transcritas dos cards oficiais publicados em
   jitshouse.com (`/wp-json/wp/v2/media`) — incluindo Caraíva
   ("Treine. Explore. Evolua.", 25–27 set), Esquenta ("o esquenta oficial para o
