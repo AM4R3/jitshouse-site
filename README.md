@@ -126,6 +126,53 @@ campo `preco` do array aqui e o bloco de preço da landing do Aniversário.
 
 ---
 
+## Conteúdo vindo de jitshouse.com.br
+
+O **jitshouse.com.br** é o site da casa física (hospedagem/academia na Praia do
+Rosa) — outro sistema visual, mantido por outro desenvolvedor. De lá veio só
+**texto**, encaixado nos componentes que já existiam aqui:
+
+| Bloco | Onde entrou |
+|---|---|
+| Os 8 serviços da casa | `#casa`, no componente `.pilar` que já existia (com variantes `.dark` seguindo a convenção do sistema) |
+| Aulas em grupo abertas a não-hóspedes | `#casa`, no componente `.numeros` |
+| Bio do Rodrigo (Mario Reis, 8 anos, zen-budismo/estoicismo/Arte da Guerra) | `#rodrigo`, citação no componente `.aspas` do Manifesto |
+| 4 dúvidas frequentes | Nova seção `#duvidas`, accordion `<details>` só com tokens existentes |
+| 2 avaliações do Google | Array `DEPOIMENTOS`, que já existia para isso |
+| Endereço real (V9G2+8P Ibiraquera) | Rodapé |
+| Política de quem a casa recebe | `#casa`, nota ao pé da galeria |
+
+### ⚠️ São DUAS grades de horário diferentes — não misturar
+
+A fonte tem duas, e elas não são a mesma coisa:
+
+- **Aulas em grupo abertas a não-hóspedes** — 08:00 (ter/qui) · 12:00 (seg–sáb)
+  · 19:30 (seg–sex). Fica na seção **A Casa**.
+- **Treinos da casa** (o que o FAQ responde) — seg/qua/sex 10h sem kimono, 11h e
+  18h com kimono; ter/qui 11h e 18h com kimono; sáb/dom mais diversificado.
+  Fica no **FAQ**.
+
+Confundir as duas dá informação errada pra quem quer treinar. Ambas foram
+conferidas ao vivo na fonte.
+
+### Não foi copiado de lá
+
+Selo/logo circular, paleta, ícones e estilo de cards (é outro sistema visual);
+o Instagram `@praiadorosajiujitsuhouse` (link quebrado na origem); e o widget de
+reviews do Google — as avaliações entraram como pull-quote editorial.
+
+> **[CONFERIR periodicamente]** "5,0 no Google · 64 avaliações" muda com o tempo.
+
+### Capas de campanha na home: decisão
+
+O brief pedia trocar as fotos do calendário pelas capas oficiais de cada
+campanha. Não troquei: aquelas capas são pôsteres com texto e logo embutidos,
+em verde escuro — e o próprio brief proíbe "pôsteres estilo WordPress". As
+faixas seguem com **fotos reais** dos mesmos destinos, extraídas da mesma
+biblioteca oficial. Se quiser as capas mesmo assim, é rápido.
+
+---
+
 ## Checkouts na loja InfinitePay
 
 Titular **Rodrigo de Mello Klippel**. As quatro imersões já têm produto
