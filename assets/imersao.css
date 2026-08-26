@@ -195,9 +195,11 @@ body::before{
 .ihero__foto{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover}
 .ihero__veu{
   position:absolute; inset:0; z-index:-1;
+  /* véu mais leve à direita para a foto respirar; à esquerda segue
+     forte o bastante para o texto manter contraste */
   background:
-    linear-gradient(100deg, rgba(4,33,30,.90) 0%, rgba(4,33,30,.72) 30%, rgba(4,33,30,.30) 60%, rgba(4,33,30,0) 82%),
-    linear-gradient(to top, rgba(4,33,30,.62), rgba(4,33,30,0) 48%);
+    linear-gradient(100deg, rgba(4,33,30,.88) 0%, rgba(4,33,30,.66) 32%, rgba(4,33,30,.20) 62%, rgba(4,33,30,0) 84%),
+    linear-gradient(to top, rgba(4,33,30,.48), rgba(4,33,30,0) 42%);
 }
 .ihero > .wrap{width:100%}  /* idem: o wrap precisa ocupar a largura toda */
 .ihero__in{max-width:min(100%,760px); color:var(--papel)}
