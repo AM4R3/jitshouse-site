@@ -79,72 +79,50 @@ Nada mais muda: o botão troca de "Quero saber mais" para "Garantir minha vaga",
 a micro-copy de pagamento entra, o `offers` do Schema.org é gerado e a barra
 fixa do mobile passa a apontar pro checkout.
 
-**Não existe campo de preço** — ver a seção abaixo.
+**`preco` é obrigatório quando há `checkout`** — ver a seção abaixo.
 
 Sem foto própria, use `foto:null` + `placa:'img/…'` — a faixa vira uma placa
 verde com o selo postal do destino (é o caso da Costa Rica hoje).
 
-### O site não exibe preço
+### O site exibe preço — e ele tem de bater com o checkout
 
-Por decisão da marca, **nenhum valor aparece nesta página**. Quem quer saber o
-preço clica em "Garantir minha vaga" e vê no checkout, que é a fonte única do
-valor. A micro-copy sob o botão avisa: *"Valores e pagamento seguro na loja
-oficial · InfinitePay"*.
+Regra da casa, revisada em 26/08/2026: **se a imersão tem `checkout`, o valor
+aparece.** Ele já é público a um clique de distância; escondê-lo só produz
+fricção e desconfiança. A política anterior ("preço só no checkout") foi
+revertida.
 
-Isso vale para a página inteira, não só para o que está visível:
+Como funciona:
 
-- Não há campo de preço no array — de propósito. Assim o site nunca mostra um
-  número defasado em relação à loja.
-- O `offers` do Schema.org leva só a **URL** e a disponibilidade, **sem
-  `price`** — com preço, o valor voltaria a ser público no código-fonte e nos
-  resultados do Google.
-- Se alguém colar um campo `preco` numa imersão, o console avisa no
-  carregamento em vez de deixar o valor vazar pra página.
+- Cada imersão com `checkout` carrega `preco`, `precoDetalhe` e `incluso`.
+  O calendário renderiza os três a partir do array — nada é escrito à mão.
+- `precoDe` é opcional e só existe onde a loja de fato marca um valor
+  anterior riscado.
+- O `offers` do Schema.org leva `price` e `priceCurrency` derivados do mesmo
+  campo `preco`. Página, JSON-LD e Google mostram o mesmo número.
+- O guarda-corpo inverteu: o console reclama quando existe `checkout` **sem**
+  `preco`, e quando existe `preco` sem `checkout`.
 
-Os valores atuais ficam registrados só aqui embaixo, como referência interna.
-
----
-
-## Estados testados
-
-| Estado | Resultado |
-|---|---|
-| Futuro distante (24/08/2026) | 4 imersões · Aniversário = PRÓXIMA · "faltam 11 dias" |
-| Semana do evento (05/09/2026) | Aniversário = PRÓXIMA · "acontecendo agora" |
-| Uma imersão passou (20/09/2026) | Aniversário some · Caraíva vira PRÓXIMA · 3 Events no JSON-LD |
-| Tudo encerrado (01/03/2027) | Bloco de lista de espera · barra e menu viram WhatsApp |
-| Imersão **sem** checkout | Botão vira "Quero saber mais" → WhatsApp · sem micro-copy · sem `offers` |
-| Página inteira | Nenhum "R$" no texto renderizado **nem no código-fonte** |
-| Próxima **sem** checkout | Barra fixa do mobile vai pro WhatsApp (`target=_blank`) |
-
-Também verificado: 390 / 768 / 1200 / 1600 px sem scroll horizontal ·
-`prefers-reduced-motion` neutraliza todo o movimento · sem JS existe um
-`<noscript>` com o calendário em texto e CTA de WhatsApp.
-
----
-
-## De onde veio o conteúdo
-
-Tudo que está escrito no site foi extraído do **jitshouse.com** (a API REST do
-WordPress: `/wp-json/wp/v2/pages` e `/media`) e dos cards oficiais publicados.
-Nenhum texto foi inventado.
-
-| Origem | O que virou |
-|---|---|
-| Página `/home` | Os pilares (Expectativa · Memória · Segurança), o texto dos 6 anos, a seção "O que fazemos" e os Diferenciais (+6 anos, +100 eventos, SC/SP/BA) |
-| Página `/imersao-caraiva` | Página de Caraíva: incluso, atividades, passeios (Rio Caraíva, Ponta do Corumbal, Reserva Porto do Boi), vida noturna, Pousada Kamaiurá |
-| Página `/esquenta-costa-rica` | Página do Esquenta: incluso, as 7 vivências e a grade hora a hora dos 3 dias (inclusive Restaurante Lola e Aloha) |
-| Página `/costa-rica-reveillon` | Página do Réveillon: incluso, Believe Surf Hotel e a programação dos 6 dias |
-| Media library | 99 imagens revisadas em contact sheet; as melhores de cada destino entraram tratadas |
+**A fonte do valor é o checkout, não o jitshouse.com.** O site oficial é
+mantido por outra agência e pode ficar defasado — hoje ele mesmo anuncia um
+valor diferente do que a loja cobra no Aniversário (ver abaixo). Antes de
+mudar qualquer preço aqui, abra o link do produto e confira.
 
 **Os 6 "posts" do site antigo foram descartados**: são lorem-ipsum do tema
 (títulos genéricos em inglês, os 6 com texto idêntico de 1963 caracteres).
 
-### Divergência encontrada
+### ⚠ Divergência aberta no Aniversário
 
-A página `/aniversario-jitshouse` anuncia **Ticket Silver R$ 540,00**, mas o
-checkout na loja está **R$ 490,00**. Como este site não exibe preço, nada quebra
-— mas vale o Rodrigo alinhar os dois.
+A página `jitshouse.com/aniversario-jitshouse/` anuncia **Ticket Silver
+R$ 540,00**; o checkout da loja cobra **R$ 490,00**. O botão "Comprar" de lá
+aponta para esse mesmo produto — ou seja, a página oficial mostra 540 e cobra
+490. Reconferido em 26/08/2026: os dois seguem no ar, divergentes.
+
+**Este site exibe R$ 490**, o valor efetivamente cobrado. Anunciar 540 e cobrar
+490 é o único erro de preço que não tem conserto: o cliente descobre na hora do
+pagamento.
+
+Quando o Rodrigo decidir o valor certo: **corrigir a loja primeiro**, depois o
+campo `preco` do array aqui e o bloco de preço da landing do Aniversário.
 
 ---
 
@@ -153,8 +131,8 @@ checkout na loja está **R$ 490,00**. Como este site não exibe preço, nada que
 Titular **Rodrigo de Mello Klippel**. As quatro imersões já têm produto
 publicado — conferidos na vitrine da loja em 24/08/2026.
 
-> Os preços abaixo são **referência interna**: o site não os exibe (ver "O site
-> não exibe preço"). Quem edita o array só precisa da URL do produto.
+> Estes são os valores **exibidos no site** (campo `preco` do array). Conferidos
+> um a um na loja em 26/08/2026. Se algum mudar lá, muda aqui.
 
 | Imersão | Produto na loja | Preço |
 |---|---|---|

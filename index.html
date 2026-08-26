@@ -311,7 +311,25 @@ body::before{
 .faixa__topo{display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; margin-bottom:1rem; min-height:1px}
 
 /* bloco de compra — só existe quando a imersão tem checkout.
-   O VALOR NÃO APARECE AQUI: o preço vive só no checkout. */
+   O VALOR APARECE AQUI e tem de bater com o do checkout. */
+.preco{display:flex; flex-wrap:wrap; align-items:baseline; gap:.15rem .7rem; margin:0 0 .35rem}
+.preco__valor{
+  font-family:"DM Serif Display",Georgia,serif; font-weight:400; line-height:.92;
+  font-size:clamp(2.1rem,5.2vw,3.1rem); color:var(--verde-rosa); letter-spacing:-.01em;
+}
+.preco__de{
+  font-family:Oswald,sans-serif; font-weight:300; font-size:clamp(.9rem,1.7vw,1.05rem);
+  color:var(--mute-papel); text-decoration:line-through; text-decoration-thickness:1px;
+}
+.preco__inclui{
+  margin:0 0 1.2rem; font-size:.9rem; color:var(--mute-papel); max-width:46ch; line-height:1.55;
+}
+.preco__inclui b{
+  color:var(--verde-rosa); font-weight:500; font-family:Oswald,sans-serif;
+  text-transform:uppercase; letter-spacing:.12em; font-size:var(--fs-micro);
+}
+.preco__inclui i{font-style:normal; color:var(--tinta)}
+
 .faixa__micro{
   display:flex; align-items:center; gap:.5rem; margin:.9rem 0 0;
   font-family:Oswald,sans-serif; font-weight:300; text-transform:uppercase;
@@ -775,25 +793,34 @@ body.tem-barra{padding-bottom:60px}
                 NULL       → botão "Quero saber mais" cai no WhatsApp
                 Publicar uma imersão nova = colar esta URL. Só isso.
 
-     SEM PREÇO NO SITE. Por decisão da marca, nenhum valor aparece
-     nesta página — quem quer saber o preço clica e vê no checkout,
-     que é a fonte única do valor. Não existe campo de preço aqui de
-     propósito: assim o site nunca mostra um número defasado em
-     relação à loja. (Os valores atuais estão anotados no README,
-     como referência interna.)
+     preco        · o valor, como texto ("R$ 1.790"). OBRIGATÓRIO
+                    sempre que `checkout` existir.
+     precoDetalhe · a linha fina abaixo do valor (nome do pacote +
+                    forma de pagamento)
+     incluso      · array com o que o pacote cobre. Vira a lista da
+                    landing e a linha "inclui:" do calendário.
+
+     PREÇO SEMPRE VISÍVEL. A regra mudou: se a imersão tem checkout,
+     o valor já é público a um clique — escondê-lo só cria fricção e
+     desconfiança. Por isso `preco` é obrigatório quando há checkout,
+     e o guarda-corpo lá embaixo reclama no console se faltar.
+
+     A FONTE DO VALOR É O CHECKOUT, não o site institucional
+     (jitshouse.com), que é mantido por outra agência e pode ficar
+     defasado — hoje ele mesmo mostra um número diferente do que a
+     loja cobra no Aniversário. Antes de mudar qualquer preço aqui,
+     abra o link de `checkout` e confira.
    ══════════════════════════════════════════════════════════════════ */
 var WHATS = '5551999041589';
 var LOJA  = 'https://loja.infinitepay.io/jitshouse_lifestyle';
 
 /* Micro-copy que acompanha todo botão de compra.
-   O site NÃO exibe preço — quem quiser saber o valor vê no checkout.
-   Por isso a frase avisa que os valores estão lá.
-   [VALIDAR] Confirmado: o checkout é o da loja oficial da Jitshouse na
-   InfinitePay (titular Rodrigo de Mello Klippel). As formas de pagamento
-   aceitas NÃO foram confirmadas — a InfinitePay só as mostra depois do
-   "Comprar agora". Assim que o Rodrigo confirmar, trocar por:
-   'Valores e pagamento seguro via InfinitePay — Pix, cartão e parcelamento' */
-var SELO_PAGAMENTO = 'Valores e pagamento seguro na loja oficial · InfinitePay';
+   [VALIDAR] O checkout é o da loja oficial da Jitshouse na InfinitePay
+   (titular Rodrigo de Mello Klippel). As formas de pagamento aceitas NÃO
+   foram confirmadas — a InfinitePay só as mostra depois do "Comprar
+   agora". Assim que o Rodrigo confirmar, trocar por:
+   'Pagamento seguro via InfinitePay — Pix, cartão e parcelamento' */
+var SELO_PAGAMENTO = 'Pagamento seguro via InfinitePay';
 
 var IMERSOES = [
   {
@@ -807,6 +834,20 @@ var IMERSOES = [
     tag:null,
     foto:'img/dest-rosa', alt:'Vista aérea da enseada da Praia do Rosa, mar turquesa e mata.',
     link:'https://jitshouse-aniversario.vercel.app/',
+    /* ⚠ DIVERGÊNCIA ABERTA (conferida em 26/08/2026):
+       · o checkout da InfinitePay cobra .............. R$ 490,00
+         (marcado como "de R$ 590,00, -17%")
+       · jitshouse.com/aniversario-jitshouse/ anuncia . R$ 540,00
+       O botão "Comprar" do site oficial aponta para ESTE MESMO produto,
+       ou seja, a página de lá mostra 540 e cobra 490.
+       Exibimos 490 porque é o que o cliente paga de fato — mostrar um
+       valor diferente do checkout é o único erro de preço que não tem
+       conserto depois. Quando o Rodrigo definir o valor certo, corrigir
+       a loja PRIMEIRO e só então trocar aqui. */
+    preco:'R$ 490',
+    precoDe:'R$ 590',
+    precoDetalhe:'Ticket Silver · pagamento seguro via InfinitePay',
+    incluso:['Todas as atividades propostas na programação'],
     checkout: LOJA + '/yne5701-ticket-silver-aniversario-jitshouse'
   },
   {
@@ -820,6 +861,10 @@ var IMERSOES = [
     tag:'Treine. Explore. Evolua.',
     foto:'img/dest-caraiva', alt:'Vista aérea de Caraíva, onde o rio encontra o mar, com a vila entre coqueiros.',
     link:'caraiva.html',
+    /* R$ 1.790,00 no checkout e em jitshouse.com/imersao-caraiva/ — batem */
+    preco:'R$ 1.790',
+    precoDetalhe:'Pacote completo · pagamento seguro via InfinitePay',
+    incluso:['Hospedagem na Pousada Kamaiurá','Café da manhã','Todas as atividades propostas na programação'],
     checkout: LOJA + '/wwk9630-jitshouse-caraiva'
   },
   {
@@ -834,7 +879,13 @@ var IMERSOES = [
     foto:'img/dest-esquenta', alt:'Pôr do sol sobre o mar na Praia do Rosa, visto por entre a vegetação da restinga.',
     link:'esquenta.html',
     /* produto "Praia do Rosa Preview Costa Rica" na loja — é este Esquenta:
-       a descrição do produto diz "10 a 12 de outubro" */
+       a descrição do produto diz "10 a 12 de outubro".
+       R$ 2.190,00 no checkout e em jitshouse.com/esquenta-costa-rica/ — batem.
+       A loja marca "de R$ 2.590,00, -15%". */
+    preco:'R$ 2.190',
+    precoDe:'R$ 2.590',
+    precoDetalhe:'Pacote completo · pagamento seguro via InfinitePay',
+    incluso:['Hospedagem','Alimentação completa','Todas as atividades, práticas e dinâmicas'],
     checkout: LOJA + '/hlm5888-praia-do-rosa-preview-costa-rica'
   },
   {
@@ -848,6 +899,13 @@ var IMERSOES = [
     tag:'Satya on the Road & Jitshouse Lifestyle',
     foto:'img/dest-costarica', alt:'Piscina do Believe Surf Hotel cercada pela mata, em Santa Teresa, Costa Rica.',
     link:'reveillon.html',
+    /* R$ 8.990,00 no checkout e em jitshouse.com/costa-rica-reveillon/ — batem.
+       A loja marca "de R$ 9.699,90, -7%". */
+    preco:'R$ 8.990',
+    precoDe:'R$ 9.699,90',
+    precoDetalhe:'Pacote completo · pagamento seguro via InfinitePay',
+    incluso:['Hospedagem no Believe Surf Hotel','Café da manhã diário','Jantar especial de réveillon','Aulas de surf, yoga e jiu-jitsu'],
+    naoIncluso:'Passagens aéreas não inclusas.',
     checkout: LOJA + '/ooe9249-jitshouse-costa-rica'
   }
 ];
@@ -918,12 +976,16 @@ function destinoDe(im){
     : { url:zapDe(im),   checkout:false, rotulo:'Quero saber mais' };
 }
 
-/* Guarda-corpo: preço é assunto do checkout. Se algum dia alguém
-   colar um campo de preço numa imersão, o console avisa em vez de
-   deixar o valor vazar pra página. */
+/* Guarda-corpo: quem tem checkout tem preço visível. O valor já é
+   público a um clique — esconder só gera fricção. Se alguém publicar
+   uma imersão nova e esquecer o preço, o console reclama. */
 IMERSOES.forEach(function(im){
-  if((im.preco || im.precoDe || im.off) && window.console)
-    console.warn('[jitshouse] "' + im.nome + '" tem campo de preço, mas este site não exibe valores — o preço fica só no checkout. Remova o campo.');
+  if(im.checkout && !im.preco && window.console)
+    console.warn('[jitshouse] "' + im.nome + '" tem checkout mas não tem `preco`. ' +
+                 'Abra ' + im.checkout + ', copie o valor e preencha o campo — ' +
+                 'valor público a um clique não se esconde.');
+  if(im.preco && !im.checkout && window.console)
+    console.warn('[jitshouse] "' + im.nome + '" mostra preço sem checkout. Confirme onde a pessoa compra.');
 });
 
 /* O bloco de conversão. Uma imersão com checkout vende aqui mesmo;
@@ -932,6 +994,20 @@ IMERSOES.forEach(function(im){
 function compra(im, prox){
   var d = destinoDe(im);
   var out = '';
+
+  /* o valor vem antes do botão: quem rolou até aqui já quer saber quanto */
+  if(d.checkout && im.preco){
+    out += '<p class="preco">'
+        +  '<span class="preco__valor">' + im.preco + '</span>'
+        +  (im.precoDe ? '<span class="preco__de">' + im.precoDe + '</span>' : '')
+        +  '</p>';
+    if(im.incluso && im.incluso.length){
+      /* sem toLowerCase: a lista tem nomes próprios (Pousada Kamaiurá,
+         Believe Surf Hotel) que não podem virar caixa baixa */
+      out += '<p class="preco__inclui"><b>Inclui:</b> ' + im.incluso.join(' · ') + '.'
+          +  (im.naoIncluso ? ' <i>' + im.naoIncluso + '</i>' : '') + '</p>';
+    }
+  }
 
   out += '<p style="margin:0"><a class="btn ' + (prox || d.checkout ? 'btn--solido' : 'btn--linha') + '"'
       +  ' href="' + d.url + '"'
@@ -1067,13 +1143,17 @@ if(DEPOIMENTOS.length){
     };
     if(im.foto) e.image = base + im.foto + '.jpg';
     if(im.checkout){
-      /* offer aponta ONDE comprar, sem publicar o valor — o preço é
-         do checkout, e no JSON-LD ele voltaria a ser público (inclusive
-         nos resultados do Google) */
+      /* agora que a página exibe o valor, o offer também leva `price` —
+         o Google mostra o mesmo número que a página e que o checkout.
+         `preco` vem como "R$ 1.790"; aqui vira 1790.00. */
       e.offers = {
         '@type':'Offer', url:im.checkout,
         availability:'https://schema.org/InStock', validFrom: HOJE
       };
+      if(im.preco){
+        var n = im.preco.replace(/[^\d,.]/g,'').replace(/\./g,'').replace(',','.');
+        if(n){ e.offers.price = parseFloat(n).toFixed(2); e.offers.priceCurrency = 'BRL'; }
+      }
     }
     return e;
   });
