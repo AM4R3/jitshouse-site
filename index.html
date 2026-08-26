@@ -434,7 +434,8 @@ body::before{
 .casa__f1{grid-column:1/3}
 .casa__f1 img{aspect-ratio:16/10}
 .casa__f2 img,.casa__f3 img,.casa__f4 img,.casa__f5 img,
-.casa__f6 img,.casa__f7 img,.casa__f8 img{aspect-ratio:1/1}
+.casa__f6 img,.casa__f7 img,.casa__f8 img,
+.casa__f9 img,.casa__f10 img,.casa__f11 img{aspect-ratio:1/1}
 .casa__f5{grid-column:1/3}
 .casa__f5 img{aspect-ratio:16/9}
 @media(min-width:900px){
@@ -447,6 +448,9 @@ body::before{
   .casa__f6{grid-column:1/5}   .casa__f6 img{aspect-ratio:1/1}
   .casa__f7{grid-column:5/9}   .casa__f7 img{aspect-ratio:1/1}
   .casa__f8{grid-column:9/13}  .casa__f8 img{aspect-ratio:1/1}
+  .casa__f9{grid-column:1/5}   .casa__f9 img{aspect-ratio:1/1}
+  .casa__f10{grid-column:5/9}  .casa__f10 img{aspect-ratio:1/1}
+  .casa__f11{grid-column:9/13} .casa__f11 img{aspect-ratio:1/1}
   /* a quebra de grade da página: a foto da direita sangra a margem */
   .casa__f2,.casa__f5{margin-right:calc(var(--gut) * -1)}
 }
@@ -482,7 +486,18 @@ body::before{
 .numeros{display:flex; gap:clamp(1.6rem,4vw,3rem); flex-wrap:wrap; margin:1.9rem 0 0; padding:0; list-style:none}
 .numeros b{display:block; font-family:"DM Serif Display",Georgia,serif; font-size:clamp(1.6rem,3vw,2.2rem); color:var(--verde-rosa); line-height:1}
 .numeros span{display:block; margin-top:.45rem}
-.depo{margin:clamp(2.5rem,6vw,4rem) 0 0; padding:0; display:grid; gap:clamp(1.8rem,4vw,2.6rem)}
+/* nota das avaliações — na tipografia do site, não no widget do Google */
+.nota{
+  display:flex; align-items:center; gap:clamp(.9rem,2.5vw,1.6rem); flex-wrap:wrap;
+  margin:clamp(2.5rem,6vw,4rem) 0 0; padding-top:1.6rem;
+  border-top:1px solid rgba(0,64,48,.22);
+}
+.nota__n{font-family:"DM Serif Display",Georgia,serif; font-size:clamp(2.2rem,5vw,3.2rem); color:var(--verde-rosa); line-height:1}
+.nota__estrelas{display:flex; gap:.2rem}
+.nota__estrelas svg{width:clamp(15px,2.2vw,19px); height:auto; fill:var(--ouro-dia)}
+.nota__txt{color:var(--mute-papel)}
+.nota__txt b{color:var(--tinta); font-weight:500}
+.depo{margin:clamp(1.8rem,4vw,2.6rem) 0 0; padding:0; display:grid; gap:clamp(1.8rem,4vw,2.6rem)}
 @media(min-width:760px){ .depo{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))} }
 .depo figure{margin:0}
 .depo blockquote{
@@ -738,6 +753,9 @@ body.tem-barra{padding-bottom:60px}
       <figure class="casa__f6 an" data-d="1"><img src="img/ac/casa-aula.webp" alt="Turma sentada em roda no tatame da Jitshouse, durante a explicação da aula." width="760" height="760" loading="lazy" decoding="async"><figcaption class="casa__legenda">A aula</figcaption></figure>
       <figure class="casa__f7 an" data-d="2"><img src="img/ac/casa-familia.webp" alt="Mãe e filha de kimono no tatame, durante uma aula aberta a famílias." width="506" height="506" loading="lazy" decoding="async"><figcaption class="casa__legenda">Em família</figcaption></figure>
       <figure class="casa__f8 an-d" data-d="3"><img src="img/ac/casa-turma.webp" alt="Turma inteira enfileirada no tatame, de kimono e sem kimono, sob o painel da JitsHouse." width="675" height="675" loading="lazy" decoding="async"><figcaption class="casa__legenda">Todos os níveis</figcaption></figure>
+      <figure class="casa__f9 an" data-d="1"><img src="img/ac/casa-predio.webp" alt="Fachada rosa da casa, com varanda de madeira e rede vermelha armada." width="642" height="642" loading="lazy" decoding="async"><figcaption class="casa__legenda">A casa</figcaption></figure>
+      <figure class="casa__f10 an" data-d="2"><img src="img/ac/casa-churrasco.webp" alt="Área externa com churrasqueira, pia e mesa de madeira sob a varanda." width="646" height="646" loading="lazy" decoding="async"><figcaption class="casa__legenda">Área de lazer</figcaption></figure>
+      <figure class="casa__f11 an-d" data-d="3"><img src="img/ac/casa-placas.webp" alt="Placas de madeira pintadas à mão penduradas numa árvore: perto do mar a gente é mais feliz." width="455" height="455" loading="lazy" decoding="async"><figcaption class="casa__legenda">Perto do mar</figcaption></figure>
     </div>
     <p class="nota-casa an">A casa recebe praticantes de jiu-jitsu e acompanhantes de quem pratica. Os quartos são compartilhados masculino e feminino, individuais para casais e para famílias com crianças.</p>
   </div>
@@ -790,8 +808,21 @@ body.tem-barra{padding-bottom:60px}
         <p class="an" data-d="4" style="margin-top:1.6rem; color:var(--mute-papel)">Uma trajetória sólida, guiada por disciplina, consistência e propósito — com milhares de atletas e entusiastas impactados pela metodologia de imersão da Jitshouse.</p>
       </div>
     </div>
-    <!-- Depoimentos: renderizados só quando o array DEPOIMENTOS tiver
-         conteúdo real e autorizado. Nada é fabricado aqui. -->
+    <!-- Avaliações públicas do Google da casa na Praia do Rosa.
+         Montado na tipografia e na paleta do site — o widget do Google
+         (cards brancos, logo colorido, selo azul) é de outro sistema
+         visual e não entra aqui. -->
+    <div class="nota an" id="bloco-nota">
+      <span class="nota__n">5,0</span>
+      <span class="nota__estrelas" role="img" aria-label="Nota 5 de 5">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      </span>
+      <span class="nota__txt">Com base em <b>64 avaliações</b> no Google</span>
+    </div>
     <div class="depo" id="lista-depoimentos"></div>
   </div>
 </section>
@@ -1040,7 +1071,9 @@ var DEPOIMENTOS = [
   { texto:'Lifestyle sem igual, lugar de muito aprendizado e qualidade de vida.',
     autor:'Mateus Santos', de:'avaliação no Google' },
   { texto:'Treinos de alto nível, e o ambiente é acolhedor e aconchegante.',
-    autor:'Susanne Bueno', de:'avaliação no Google' }
+    autor:'Susanne Bueno', de:'avaliação no Google' },
+  { texto:'Lugar incrível! Para quem gosta de praia, surf e muito jiu jitsu, esse é o lugar certo. Viva essa experiência!',
+    autor:'Junior Phillipi', de:'avaliação no Google · abr 2024' }
 ];
 
 /* ── data de hoje no fuso da casa ─────────────────────────────────── */
@@ -1132,18 +1165,15 @@ function compra(im, prox){
         +  'Ver a experiência <span class="seta" aria-hidden="true">→</span></a></p>';
   }
 
-  /* 2º o valor e a compra */
-  if(d.checkout && im.preco){
-    out += '<p class="preco">'
-        +  '<span class="preco__valor">' + im.preco + '</span>'
-        +  (im.precoDe ? '<span class="preco__de">' + im.precoDe + '</span>' : '')
-        +  '</p>';
-    if(im.incluso && im.incluso.length){
-      /* sem toLowerCase: a lista tem nomes próprios (Pousada Kamaiurá,
-         Believe Surf Hotel) que não podem virar caixa baixa */
-      out += '<p class="preco__inclui"><b>Inclui:</b> ' + im.incluso.join(' · ') + '.'
-          +  (im.naoIncluso ? ' <i>' + im.naoIncluso + '</i>' : '') + '</p>';
-    }
+  /* 2º o que está incluso — SEM o valor.
+     Pedido do Rodrigo: o preço fica mais pro fim do funil. Aqui em
+     cima, na home, ele qualificaria o lead cedo demais. O valor vive
+     na página de cada imersão (no CTA do fim) e no checkout. */
+  if(d.checkout && im.incluso && im.incluso.length){
+    /* sem toLowerCase: a lista tem nomes próprios (Pousada Kamaiurá,
+       Believe Surf Hotel) que não podem virar caixa baixa */
+    out += '<p class="preco__inclui"><b>Inclui:</b> ' + im.incluso.join(' · ') + '.'
+        +  (im.naoIncluso ? ' <i>' + im.naoIncluso + '</i>' : '') + '</p>';
   }
 
   out += '<p style="margin:0"><a class="btn ' + (prox || d.checkout ? 'btn--solido' : 'btn--linha') + '"'
@@ -1253,6 +1283,8 @@ if(DEPOIMENTOS.length){
   }).join('');
 }else{
   ld.remove();
+  var bn = document.getElementById('bloco-nota');
+  if(bn) bn.remove();   /* sem depoimento, a nota sozinha não se sustenta */
 }
 
 /* ── Schema.org: um Event por imersão ativa, do mesmo array ───────── */
