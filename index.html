@@ -339,6 +339,7 @@ body::before{
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 20 5v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5Z' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;
           mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 20 5v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5Z' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;
 }
+.faixa__exp{margin:0 0 clamp(1.3rem,2.6vw,1.7rem)}
 .faixa__sec{display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; margin:1.1rem 0 0; padding:0; list-style:none}
 .faixa__sec a{
   text-decoration:none; font-family:Oswald,sans-serif; font-weight:300;
@@ -1101,7 +1102,18 @@ function compra(im, prox){
   var d = destinoDe(im);
   var out = '';
 
-  /* o valor vem antes do botão: quem rolou até aqui já quer saber quanto */
+  /* 1º a experiência. Pedido do Rodrigo: quem chega pela primeira vez
+     precisa entender a programação antes de ver o valor — preço antes
+     do entendimento faz desistir. Por isso este botão vem antes do
+     bloco de compra, e com peso de botão secundário (não é link). */
+  if(im.link){
+    var fora = /^https?:/i.test(im.link);   /* interna na mesma aba */
+    out += '<p class="faixa__exp"><a class="btn btn--linha" href="' + im.link + '"'
+        +  (fora ? ' target="_blank" rel="noopener"' : '') + '>'
+        +  'Ver a experiência <span class="seta" aria-hidden="true">→</span></a></p>';
+  }
+
+  /* 2º o valor e a compra */
   if(d.checkout && im.preco){
     out += '<p class="preco">'
         +  '<span class="preco__valor">' + im.preco + '</span>'
@@ -1125,15 +1137,11 @@ function compra(im, prox){
     out += '<p class="faixa__micro">' + SELO_PAGAMENTO + '</p>';
   }
 
-  /* secundários: a página de venda (quando existe) e as dúvidas */
-  var sec = '';
-  if(im.link){
-    /* página desta imersão: interna abre na mesma aba, externa em outra */
-    var fora = /^https?:/i.test(im.link);
-    sec += '<li><a href="' + im.link + '"' + (fora ? ' target="_blank" rel="noopener"' : '') + '>Ver a imersão →</a></li>';
+  /* 3º as dúvidas, por último e como link leve */
+  if(d.checkout){
+    out += '<ul class="faixa__sec"><li><a href="' + zapDe(im, true)
+        +  '" target="_blank" rel="noopener">Dúvidas? Fala com a gente</a></li></ul>';
   }
-  if(d.checkout)sec += '<li><a href="' + zapDe(im, true) + '" target="_blank" rel="noopener">Dúvidas? Fala com a gente</a></li>';
-  if(sec) out += '<ul class="faixa__sec">' + sec + '</ul>';
 
   return out;
 }
