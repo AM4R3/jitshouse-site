@@ -234,9 +234,11 @@ body::before{
 .hero__foto{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; object-position:60% 50%}
 .hero__veu{
   position:absolute; inset:0; z-index:-1;
+  /* no mobile o texto ocupa quase a largura toda e cai sobre a parte
+     clara da foto, então o véu de baixo precisa ser mais firme */
   background:
-    linear-gradient(100deg, rgba(4,33,30,.92) 0%, rgba(4,33,30,.76) 28%, rgba(4,33,30,.34) 56%, rgba(4,33,30,0) 80%),
-    linear-gradient(to top, rgba(4,33,30,.5), rgba(4,33,30,0) 45%);
+    linear-gradient(100deg, rgba(4,33,30,.92) 0%, rgba(4,33,30,.78) 28%, rgba(4,33,30,.44) 58%, rgba(4,33,30,.16) 85%),
+    linear-gradient(to top, rgba(4,33,30,.80) 0%, rgba(4,33,30,.62) 30%, rgba(4,33,30,.18) 62%, rgba(4,33,30,0) 82%);
 }
 .hero > .wrap{width:100%}   /* sem isto o wrap vira flex-item, encolhe e centraliza */
 .hero__in{max-width:min(100%,790px); color:var(--papel); text-align:left}
@@ -247,6 +249,36 @@ body::before{
 .hero h1 em{font-style:italic; color:var(--areia)}
 .hero__sub{color:var(--papel); opacity:.94; max-width:46ch; margin:0 0 2.4rem; font-size:clamp(1rem,1.7vw,1.2rem)}
 .hero__carimbo{margin-bottom:1.9rem}
+
+/* ── nitidez do hero no desktop ───────────────────────────────────
+   A foto tem ~800px de detalhe real (é o teto do acervo). Esticada
+   na largura toda de um monitor ela precisa de 2,4x e fica mole.
+   A partir de 1000px a foto passa a ocupar pouco mais de metade da
+   tela: exibida menor, volta a ficar nítida. O campo escuro cobre o
+   resto, então o texto continua claro sobre fundo escuro — nenhuma
+   cor, fonte ou alinhamento muda. No mobile segue sangrando, porque
+   lá a resolução dá conta. */
+@media(min-width:1000px){
+  .hero{background:var(--floresta)}
+  .hero picture{position:absolute; top:0; right:0; bottom:0; width:56%; z-index:-2}
+  .hero__foto{position:static; width:100%; height:100%}
+  .hero__veu{
+    background:
+      linear-gradient(90deg, var(--floresta) 0%, var(--floresta) 34%, rgba(4,33,30,.94) 44%, rgba(4,33,30,.62) 55%, rgba(4,33,30,.22) 70%, rgba(4,33,30,.04) 88%, rgba(4,33,30,0) 100%),
+      linear-gradient(to top, rgba(4,33,30,.40), rgba(4,33,30,0) 45%);
+  }
+  .hero__in{max-width:min(50%,640px)}
+  /* a coluna estreitou, então o display acompanha: a headline volta a
+     cair em duas linhas, sem hifenizar no meio da palavra */
+  .hero h1{font-size:clamp(2.6rem,4.3vw,4.3rem)}
+  .hero__sub{max-width:34ch}
+  .hero__eyebrow{max-width:30ch}
+}
+@media(min-width:1500px){
+  .hero picture{width:58%}
+  .hero__in{max-width:min(44%,660px)}
+  .hero h1{font-size:clamp(3rem,3.5vw,4.6rem)}
+}
 
 /* ── manifesto ───────────────────────────────────────────────────── */
 .manifesto__grid{display:grid; gap:clamp(2rem,5vw,4rem)}
@@ -612,7 +644,7 @@ body.tem-barra{padding-bottom:60px}
 <section class="hero" aria-labelledby="h1">
   <picture>
     <source srcset="img/hero-onda.webp" type="image/webp">
-    <img class="hero__foto" src="img/hero-onda.jpg" width="1700" height="1488"
+    <img class="hero__foto" src="img/hero-onda.jpg" width="1200" height="1050"
          alt="Costão de pedras da Praia do Rosa, com o mar aberto e a mata do morro ao fundo."
          fetchpriority="high" decoding="async">
   </picture>
