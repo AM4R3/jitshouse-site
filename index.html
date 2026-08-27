@@ -67,7 +67,11 @@
 
 <link rel="icon" href="img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="preload" as="image" href="img/hero-onda.webp" fetchpriority="high">
+<!-- o hero tem arquivo por tela: o mobile fica com hero-onda (que já
+     está nítido lá) e o desktop usa hero-desktop, em resolução maior.
+     Cada preload tem seu media, então cada aparelho baixa só o seu. -->
+<link rel="preload" as="image" href="img/hero-onda.webp" media="(max-width:999.98px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/hero-desktop.webp" media="(min-width:1000px)" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500&family=Oswald:wght@300;500&display=swap" rel="stylesheet">
@@ -250,14 +254,22 @@ body::before{
 .hero__sub{color:var(--papel); opacity:.94; max-width:46ch; margin:0 0 2.4rem; font-size:clamp(1rem,1.7vw,1.2rem)}
 .hero__carimbo{margin-bottom:1.9rem}
 
-/* ── nitidez do hero no desktop ───────────────────────────────────
-   A foto tem ~800px de detalhe real (é o teto do acervo). Esticada
-   na largura toda de um monitor ela precisa de 2,4x e fica mole.
-   A partir de 1000px a foto passa a ocupar pouco mais de metade da
-   tela: exibida menor, volta a ficar nítida. O campo escuro cobre o
-   resto, então o texto continua claro sobre fundo escuro — nenhuma
-   cor, fonte ou alinhamento muda. No mobile segue sangrando, porque
-   lá a resolução dá conta. */
+/* ── ⚠ TEMPORÁRIO: contenção do hero no desktop ───────────────────
+   Isto é um remendo para a falta de resolução, NÃO uma decisão de
+   design. A foto tem ~800px de detalhe real (teto do acervo); esticada
+   na largura toda de um monitor ela precisa de 2,4x e fica mole. Aqui
+   ela passa a ocupar 56% da tela — exibida menor, volta a ficar nítida.
+   O campo escuro cobre o resto, então o texto segue claro sobre fundo
+   escuro e nenhuma cor, fonte ou alinhamento muda. No mobile continua
+   sangrando na tela toda, porque lá a resolução já dá conta.
+
+   ★ QUANDO CHEGAR O ARQUIVO EM 2K:
+     1. troque img/hero-desktop.webp e .jpg (o mobile usa hero-onda.*
+        e não é afetado)
+     2. APAGUE este bloco @media inteiro e o @media(min-width:1500px)
+        logo abaixo
+     3. o hero volta a sangrar a tela toda, como era
+   ─────────────────────────────────────────────────────────────── */
 @media(min-width:1000px){
   .hero{background:var(--floresta)}
   .hero picture{position:absolute; top:0; right:0; bottom:0; width:56%; z-index:-2}
@@ -643,6 +655,11 @@ body.tem-barra{padding-bottom:60px}
 <!-- ══ HERO ══════════════════════════════════════════════════════ -->
 <section class="hero" aria-labelledby="h1">
   <picture>
+    <!-- ≥1000px: versão de maior resolução. Trocar SÓ estes dois arquivos
+         (img/hero-desktop.webp e .jpg) quando chegar o 2K — o mobile não
+         é afetado. -->
+    <source media="(min-width:1000px)" srcset="img/hero-desktop.webp" type="image/webp">
+    <source media="(min-width:1000px)" srcset="img/hero-desktop.jpg" type="image/jpeg">
     <source srcset="img/hero-onda.webp" type="image/webp">
     <img class="hero__foto" src="img/hero-onda.jpg" width="1200" height="1050"
          alt="Costão de pedras da Praia do Rosa, com o mar aberto e a mata do morro ao fundo."
