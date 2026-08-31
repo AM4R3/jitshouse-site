@@ -9,7 +9,7 @@
   JITSHOUSE LIFESTYLE  ·  SITE INSTITUCIONAL
   ───────────────────────────────────────────────────────────────────
   Esta é a CASA DIGITAL da marca. Não confundir com as landings de
-  venda de cada imersão (ex.: jitshouse-aniversario.vercel.app).
+  venda de cada imersão (ex.: /aniversario, neste mesmo repo).
   Aqui moram o manifesto, o fundador, a casa e o CALENDÁRIO — que
   aponta para a landing de cada evento.
 
@@ -44,13 +44,14 @@
     material oficial + selo)
   · Landings próprias de Caraíva / Esquenta / Réveillon → trocar
     "wa:true" por "link:'...'" no objeto da imersão
-  · Domínio final: trocar as URLs jitshouse.com ao publicar
+  · Domínio final: jitshouse.site (Spaceship, registrado 31/08/2026).
+    As URLs canônicas, og: e JSON-LD já apontam para ele.
 ═══════════════════════════════════════════════════════════════════════
 -->
 
 <title>Jitshouse Lifestyle — Imersões de Jiu-Jitsu e Autoconhecimento · Praia do Rosa, Caraíva e Costa Rica</title>
 <meta name="description" content="Jiu-jitsu + autoconhecimento. Criei a Jitshouse para provar que o jiu-jitsu vai além do tatame. Imersões em lugares que transformam — Praia do Rosa, Caraíva e Costa Rica. Venha viver mais.">
-<link rel="canonical" href="https://jitshouse.com/">
+<link rel="canonical" href="https://jitshouse.site/">
 <meta name="theme-color" content="#F0E8D6">
 
 <meta property="og:type" content="website">
@@ -58,8 +59,8 @@
 <meta property="og:site_name" content="Jitshouse Lifestyle">
 <meta property="og:title" content="Jitshouse Lifestyle — O jiu-jitsu vai além do tatame">
 <meta property="og:description" content="Imersões de jiu-jitsu e autoconhecimento em lugares que transformam. Praia do Rosa, Caraíva e Costa Rica.">
-<meta property="og:url" content="https://jitshouse.com/">
-<meta property="og:image" content="https://jitshouse.com/img/og.jpg">
+<meta property="og:url" content="https://jitshouse.site/">
+<meta property="og:image" content="https://jitshouse.site/img/og.jpg">
 <meta property="og:image:alt" content="Surfista numa onda na Praia do Rosa, com a frase: o jiu-jitsu vai além do tatame.">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -77,9 +78,9 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500&family=Oswald:wght@300;500&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","@id":"https://jitshouse.com/#org",
-"name":"Jitshouse Lifestyle","url":"https://jitshouse.com/","logo":"https://jitshouse.com/img/brasao.webp",
-"image":"https://jitshouse.com/img/og.jpg",
+{"@context":"https://schema.org","@type":"Organization","@id":"https://jitshouse.site/#org",
+"name":"Jitshouse Lifestyle","url":"https://jitshouse.site/","logo":"https://jitshouse.site/img/brasao.webp",
+"image":"https://jitshouse.site/img/og.jpg",
 "description":"Imersões de jiu-jitsu e autoconhecimento em lugares que transformam. Base na Praia do Rosa, Imbituba, Santa Catarina.",
 "email":"jitshousepraiadorosa@gmail.com","founder":{"@type":"Person","name":"Rodrigo Klippel"},
 "address":{"@type":"PostalAddress","addressLocality":"Imbituba","addressRegion":"SC","addressCountry":"BR"},
@@ -919,7 +920,7 @@ body.tem-barra{padding-bottom:60px}
         <ul>
           <li><a href="https://wa.me/5551999041589" target="_blank" rel="noopener">WhatsApp · 51 99904-1589</a></li>
           <li><a href="mailto:jitshousepraiadorosa@gmail.com">jitshousepraiadorosa@gmail.com</a></li>
-          <li><a href="https://jitshouse.com">jitshouse.com</a></li>
+          <li><a href="https://jitshouse.com.br" target="_blank" rel="noopener">jitshouse.com.br</a></li>
           <li>V9G2+8P Ibiraquera · Imbituba — SC</li>
         </ul>
       </div>
@@ -1001,7 +1002,7 @@ var IMERSOES = [
     copy:'Três dias de muito jiu jitsu na Praia do Rosa, com Rodrigo Klippel e sete convidados confirmados, no fim de semana em que a Jitshouse comemora mais um ano.',
     tag:null,
     foto:'img/dest-rosa', alt:'Vista aérea da enseada da Praia do Rosa, com a arrebentação em faixas e as casas na encosta.',
-    link:'https://jitshouse-aniversario.vercel.app/',
+    link:'aniversario',
     /* ⚠ DIVERGÊNCIA ABERTA (conferida em 26/08/2026):
        · o checkout da InfinitePay cobra .............. R$ 490,00
          (marcado como "de R$ 590,00, -17%")
@@ -1306,7 +1307,7 @@ if(DEPOIMENTOS.length){
 /* ── Schema.org: um Event por imersão ativa, do mesmo array ───────── */
 (function(){
   if(!ativas.length) return;
-  var base = 'https://jitshouse.com/';
+  var base = 'https://jitshouse.site/';
   var eventos = ativas.map(function(im){
     var e = {
       '@context':'https://schema.org','@type':'Event',
@@ -1315,7 +1316,10 @@ if(DEPOIMENTOS.length){
       eventStatus:'https://schema.org/EventScheduled',
       eventAttendanceMode:'https://schema.org/OfflineEventAttendanceMode',
       description: im.copy,
-      url: im.link || base + '#im-' + im.id,
+      /* Schema.org exige URL absoluta: im.link é um slug interno
+         ('aniversario', 'caraiva'...), então precisa do base na frente. */
+      url: im.link ? (/^https?:/i.test(im.link) ? im.link : base + im.link)
+                   : base + '#im-' + im.id,
       organizer:{'@type':'Organization','name':'Jitshouse Lifestyle','url':base},
       performer:{'@type':'Person','name':'Rodrigo Klippel'},
       location:{'@type':'Place','name':im.selo.l1,
