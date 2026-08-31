@@ -1058,6 +1058,26 @@ var IMERSOES = [
     checkout: LOJA + '/hlm5888-praia-do-rosa-preview-costa-rica'
   },
   {
+    id:'desafio',
+    nome:'Desafio Jitshouse',
+    inicio:'2026-11-13', fim:'2026-11-15',
+    datas:'13 a 15 nov 2026',
+    local:'Praia do Rosa · Imbituba — Santa Catarina',
+    selo:{ l1:'PRAIA DO ROSA', l2:'O DESAFIO', icone:'paraquedas' },
+    copy:'A imersão que sai do tatame. Três dias de apneia, salto de paraquedas, preparação física e surf — para descobrir o que o treino construiu quando o chão muda.',
+    tag:'3 dias de experiências, conexões e desafios',
+    foto:'img/de/de-hero', alt:'Onda quebrando na Praia do Rosa com um surfista na parede, e recortes de um paraquedista sobre a costa.',
+    link:'desafio',
+    /* R$ 3.490,00 em jitshouse.com/desafio-jitshouse/ e nas artes oficiais.
+       [VALIDAR] NÃO existe produto do Desafio na loja InfinitePay — a loja
+       tem 4 (Aniversário, Caraíva, Preview Costa Rica e Costa Rica). Por
+       isso este é o único card sem checkout: o CTA vai pro WhatsApp.
+       Quando o produto for criado, acrescentar a chave `checkout`. */
+    preco:'R$ 3.490',
+    precoDetalhe:'Pacote completo · vagas pelo WhatsApp',
+    incluso:['Hospedagem na Morada da Praia do Rosa','Alimentação completa','Todas as práticas e dinâmicas']
+  },
+  {
     id:'reveillon',
     nome:'Réveillon Costa Rica',
     inicio:'2026-12-28', fim:'2027-01-02',
@@ -1112,7 +1132,8 @@ var ICONES = {
   onda:      '<path class="icone traco" d="M46 62c3.6-3.4 7.2-3.4 10.8 0s7.2 3.4 10.8 0 7.2-3.4 10.8 0M46 52c3.6-3.4 7.2-3.4 10.8 0s7.2 3.4 10.8 0 7.2-3.4 10.8 0" stroke-width="1.6"/>',
   palmeira:  '<path class="icone traco" d="M60 52v18M60 52c-6-5-13-5-17 1 6-2 11-1 14 2M60 52c6-5 13-5 17 1-6-2-11-1-14 2M60 52c-2-7 1-12 7-14-3 5-3 9-2 12M60 52c2-7-1-12-7-14 3 5 3 9 2 12" stroke-width="1.5"/><path class="icone traco" d="M50 72h20" stroke-width="1.5"/>',
   sol:       '<circle class="icone traco" cx="60" cy="59" r="7.5" stroke-width="1.6"/><path class="icone traco" d="M60 45v-4M60 77v-4M74 59h4M42 59h4M70 49l3-3M47 72l3-3M70 69l3 3M47 46l3 3" stroke-width="1.5"/>',
-  triangulo: '<path class="icone traco" d="M60 47 74 70H46Z" stroke-width="1.6"/><circle class="icone traco" cx="60" cy="63" r="4" stroke-width="1.5"/>'
+  triangulo: '<path class="icone traco" d="M60 47 74 70H46Z" stroke-width="1.6"/><circle class="icone traco" cx="60" cy="63" r="4" stroke-width="1.5"/>',
+  paraquedas:'<path class="icone traco" d="M44 56a16 16 0 0 1 32 0" stroke-width="1.6"/><path class="icone traco" d="M44 56 60 68 76 56M54.7 56 60 68M65.3 56 60 68" stroke-width="1.2"/><path class="icone traco" d="M60 68v5" stroke-width="1.4"/><circle class="icone traco" cx="60" cy="76" r="3" stroke-width="1.4"/>'
 };
 function selo(s,i,cls){
   var ic = ICONES[s.icone] || ICONES.triangulo;
