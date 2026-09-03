@@ -369,3 +369,10 @@ body.tem-barra{padding-bottom:60px}
   .btn:hover,.btn:hover .seta{transform:none}
   .barra{transition:none}
 }
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+html{scrollbar-color:var(--ouro) var(--floresta); scrollbar-width:thin}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--floresta)}
+::-webkit-scrollbar-thumb{background:var(--ouro); border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--areia)}
